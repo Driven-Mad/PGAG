@@ -21,7 +21,11 @@ public:
 	const Vec2& operator -=(const float& f);
 	const Vec2& operator *=(const float& f);
 	const Vec2& operator /=(const float& f);
-	
+	//couple of operations to get dot, cross, mag, and norm of vectors
+	const float dot(Vec2 a, Vec2 b);
+	const Vec2 cross(Vec2 a, Vec2 b);
+	const float magnitude(Vec2 v);
+	const Vec2 normalize(Vec2 v);
 
 private:
 
@@ -47,16 +51,16 @@ inline const Vec2 operator + (const Vec2 &v, const float &f)
 inline const Vec2 operator - (const Vec2 &a, const Vec2 &b)
 {
 	Vec2 temp;
-	temp.x = a.x - b.x;
-	temp.y = a.y - b.y;
+	temp.x = a.x + -b.x;
+	temp.y = a.y + -b.y;
 	temp.w = 1.0f;
 	return temp;
 }
 inline const Vec2 operator - (const Vec2 &v, const float &f)
 {
 	Vec2 temp;
-	temp.x = v.x - f;
-	temp.y = v.y - f;
+	temp.x = v.x + -f;
+	temp.y = v.y + -f;
 	temp.w = 1.0f;
 	return temp;
 }
