@@ -22,7 +22,7 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Vec2.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Header Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

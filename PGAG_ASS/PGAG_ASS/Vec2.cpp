@@ -74,13 +74,14 @@ const Vec2& Vec2::operator /=(const float& f)
 	w = 1.0f;
 	return *this;
 }
-
+/// Dot product function
 const float Vec2::dot(Vec2 a, Vec2 b)
 {
 	float temp;
 	temp = (a.x * b.x) + (a.y * b.y);
 	return temp;
 }
+///Cross Product function
 const Vec2 Vec2::cross(Vec2 a, Vec2 b)
 {
 	Vec2 temp;
@@ -88,14 +89,14 @@ const Vec2 Vec2::cross(Vec2 a, Vec2 b)
 	temp.y = a.y * b.x;
 	return temp;
 }
-
+///Magnitude function
 const float Vec2::magnitude(Vec2 v)
 {
 	float a;
 	a = sqrtf(dot(v, v));
 	return a;
 }
-
+///Normalizing Function
 const Vec2 Vec2::normalize(Vec2 v)
 {
 	float m = magnitude(v);
