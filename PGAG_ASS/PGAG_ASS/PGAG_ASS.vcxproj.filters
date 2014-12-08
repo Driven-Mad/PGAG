@@ -24,9 +24,15 @@
     <ClCompile Include="Vec2.cpp">
       <Filter>Header Files</Filter>
     </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Vec2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

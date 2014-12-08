@@ -83,9 +83,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PGAG_ASS.cpp" />
+    <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Vec2.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Texture.h" />
     <ClInclude Include="Vec2.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
