@@ -14,7 +14,7 @@ public:
 	///setter for filename
 	void setfilename(std::string s);
 	///Draws Texture to screen
-	void Draw(int posX, int posY, int width, int height, SDL_Renderer *r);
+	void Draw(int TposX, int TposY, int Twidth, int Theight, int RposX, int RposY, int Rwidth, int Rheight, SDL_Renderer *r);
 private:
 	///File Name for Texture
 	std::string filename;

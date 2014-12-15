@@ -18,6 +18,7 @@ int main(int argc, char *argv[]){
 		std::printf("GOOD LAWD YOU SUCK");
 		return -1;
 	}
+	int x = 1;
 
 	SDL_Renderer *rend = SDL_CreateRenderer(window, -1, 0);
 	///Create our BackGround
@@ -29,9 +30,21 @@ int main(int argc, char *argv[]){
 	Player->setfilename("Tree.bmp");
 	Player->createTexture(rend);
 
+
 	bool playing = true;
 	while (playing){
 		SDL_Event incoming;
+		for (int i = 0; i<10000000; i++)
+		{
+			if (i == 9999999){
+				x++;
+			}
+		}
+		
+		if (x > 16)
+		{
+			x = 1;
+		}
 		while (SDL_PollEvent(&incoming)){
 			switch (incoming.type){
 			case SDL_QUIT:
@@ -39,13 +52,65 @@ int main(int argc, char *argv[]){
 				break;
 			}
 		}
+		
 		///Sets background default colour (not accustom to Hex so using default from labs)
 		SDL_SetRenderDrawColor(rend, 0xFF, 0x0, 0x0, 0xFF);
 		SDL_RenderClear(rend);
 		///Draw my background to the screen
-		BackGround->Draw(0, 0,winWid,winLen, rend);
-		Player->Draw(0, 0, 80, 120, rend);
-
+		BackGround->Draw(0, 0,winWid,winLen,0,0,winWid,winLen, rend);
+		
+			switch (x)
+			{
+			case 1:
+				Player->Draw(0, 0, 77, 132, 0, 123, 77, 132, rend);
+				break;
+			case 2:
+				Player->Draw(0, 0, 77, 132, 77, 123, 77, 132, rend);
+				break;
+			case 3:
+				Player->Draw(0, 0, 77, 132, 154, 123, 77, 132, rend);
+				break;
+			case 4:
+				Player->Draw(0, 0, 77, 132, 231, 123, 77, 132, rend);
+				break;
+			case 5:
+				Player->Draw(0, 0, 77, 132, 308, 123, 77, 132, rend);
+				break;
+			case 6:
+				Player->Draw(0, 0, 77, 132, 385, 123, 77, 132, rend);
+				break;
+			case 7:
+				Player->Draw(0, 0, 77, 132, 462, 123, 77, 132, rend);
+				break;
+			case 8:
+				Player->Draw(0, 0, 77, 132, 539, 123, 77, 132, rend);
+				break;
+			case 9:
+				Player->Draw(0, 0, 77, 132, 0, 260, 77, 132, rend);
+				break;
+			case 10:
+				Player->Draw(0, 0, 77, 132, 77, 260, 77, 132, rend);
+				break;
+			case 11:
+				Player->Draw(0, 0, 77, 132, 154, 260, 77, 132, rend);
+				break;
+			case 12:
+				Player->Draw(0, 0, 77, 132, 231, 260, 77, 132, rend);
+				break;
+			case 13:
+				Player->Draw(0, 0, 77, 132, 308, 260, 77, 132, rend);
+				break;
+			case 14:
+				Player->Draw(0, 0, 77, 132, 385, 260, 77, 132, rend);
+				break;
+			case 15:
+				Player->Draw(0, 0, 77, 132, 462, 260, 77, 132, rend);
+				break;
+			case 16:
+				Player->Draw(0, 0, 77, 132, 539, 260, 77, 132, rend);
+				break;
+		}
+			
 		SDL_RenderPresent(rend);
 	}
 	///pause before we leave
