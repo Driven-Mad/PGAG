@@ -1,50 +1,72 @@
 #include "Texture.h"
 
-
-Texture::Texture()
-{
+Texture::Texture(){
+	SDL_Texture *text = NULL;
 }
 
 
-Texture::~Texture()
-{
+Texture::~Texture(){
+	if (text){
+		SDL_DestroyTexture(text);
+	}
 }
 
-int Texture::checkImageLoad(SDL_Surface *I)
-{
-	if (I == NULL)
-	{
+int Texture::checkImageLoad(SDL_Surface *I){
+	///Check if the image loads ok!
+	if (I == NULL){
 		std::cout << "sorry your image has not been loaded";
 		SDL_Delay(200);
 		SDL_Quit();
 		return -1;
 	}
-	else
-	{
+	else{
 		return 1;
 	}
 }
 
-void Texture::freeImage(SDL_Surface *I)
-{
+void Texture::freeImage(SDL_Surface *I){
+	///Free image up
 	SDL_FreeSurface(I);
 }
 
-SDL_Surface Texture::loadImage(std::string filename)
-{
+SDL_Surface Texture::loadImage(std::string filename){
+	///Load image.
 	SDL_Surface *image = SDL_LoadBMP(filename.c_str());
 	checkImageLoad(image);
 	return *image;
 }
 
-SDL_Texture& Texture::createTexture(SDL_Renderer *r, std::string f)
-{
-	SDL_Surface i = loadImage(f);
-	SDL_Texture *text = SDL_CreateTextureFromSurface(r, &i);
-	if (text == NULL)
-	{
+SDL_Texture* Texture::createTexture(SDL_Renderer *r){
+	///Load image file
+	SDL_Surface &i = loadImage(filename);
+	SDL_SetColorKey(&i, 1, SDL_MapRGB(i.format, 255, 0, 255));
+	///Create the texture from the image and renderer
+	text = SDL_CreateTextureFromSurface(r, &i);
+	///Do a quick check if the texture has loaded
+	if (text == NULL){
 		std::cout << "you're texture didn't load, booo hooo";
 	}
+	///free up the image
 	freeImage(&i);
-	return *text;
+	///Return the texture 
+	return text;
+}
+///Getter for the filename
+std::string Texture::getfilename(){
+	return filename;
+}
+
+///Setter for the filename
+void Texture::setfilename(std::string s){
+	filename = s;
+}
+
+void Texture::Draw(int posX, int posY, int width, int height, SDL_Renderer *r){
+	SDL_Rect des;
+	des.x = posX;
+	des.y = posY;
+	des.h = height;
+	des.w = width;
+	//SDL_QueryTexture(text, NULL, NULL, &des.w, &des.h);
+	SDL_RenderCopy(r, text, &des, &des);
 }

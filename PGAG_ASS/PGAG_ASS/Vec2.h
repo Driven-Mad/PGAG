@@ -1,7 +1,6 @@
 #pragma once
 
-class Vec2
-{
+class Vec2{
 public:
 	///Vector2 Constructors, takes 0,2,3 arg
 	Vec2();
@@ -31,16 +30,14 @@ private:
 
 };
 /// Addition Operations for Vec 2's
-inline const Vec2 operator + (const Vec2 &a, const Vec2 &b)
-{
+inline const Vec2 operator + (const Vec2 &a, const Vec2 &b){
 	Vec2 temp;
 	temp.x = a.x + b.x;
 	temp.y = a.y + b.y;
 	temp.w = 1.0f;
 	return temp;
 }
-inline const Vec2 operator + (const Vec2 &v, const float &f)
-{
+inline const Vec2 operator + (const Vec2 &v, const float &f){
 	Vec2 temp;
 	temp.x = v.x + f;
 	temp.y = v.y + f;
@@ -48,16 +45,14 @@ inline const Vec2 operator + (const Vec2 &v, const float &f)
 	return temp;
 }
 /// Subtraction Operations for Vec 2's
-inline const Vec2 operator - (const Vec2 &a, const Vec2 &b)
-{
+inline const Vec2 operator - (const Vec2 &a, const Vec2 &b){
 	Vec2 temp;
 	temp.x = a.x + -b.x;
 	temp.y = a.y + -b.y;
 	temp.w = 1.0f;
 	return temp;
 }
-inline const Vec2 operator - (const Vec2 &v, const float &f)
-{
+inline const Vec2 operator - (const Vec2 &v, const float &f){
 	Vec2 temp;
 	temp.x = v.x + -f;
 	temp.y = v.y + -f;
@@ -65,16 +60,14 @@ inline const Vec2 operator - (const Vec2 &v, const float &f)
 	return temp;
 }
 /// Multiplication Operations for Vec 2's
-inline const Vec2 operator * (const Vec2 &a, const Vec2 &b)
-{
+inline const Vec2 operator * (const Vec2 &a, const Vec2 &b){
 	Vec2 temp;
 	temp.x = a.x * b.x;
 	temp.y = a.y * b.y;
 	temp.w = 1.0f;
 	return temp;
 }
-inline const Vec2 operator * (const Vec2 &v, const float &f)
-{
+inline const Vec2 operator * (const Vec2 &v, const float &f){
 	Vec2 temp;
 	temp.x = v.x * f;
 	temp.y = v.y * f;
@@ -82,16 +75,14 @@ inline const Vec2 operator * (const Vec2 &v, const float &f)
 	return temp;
 }
 /// Divide Operations for Vec 2's
-inline const Vec2 operator / (const Vec2 &a, const Vec2 &b)
-{
+inline const Vec2 operator / (const Vec2 &a, const Vec2 &b){
 	Vec2 temp;
 	temp.x = a.x / b.x;
 	temp.y = a.y / b.y;
 	temp.w = 1.0f;
 	return temp;
 }
-inline const Vec2 operator / (const Vec2 &v, const float &f)
-{
+inline const Vec2 operator / (const Vec2 &v, const float &f){
 	Vec2 temp;
 	temp.x = v.x / f;
 	temp.y = v.y / f;
@@ -99,8 +90,7 @@ inline const Vec2 operator / (const Vec2 &v, const float &f)
 	return temp;
 }
 /// Negate Operations for Vec 2's
-inline const Vec2 operator -(const Vec2 v)
-{
+inline const Vec2 operator -(const Vec2 v){
 	Vec2 temp;
 	temp.x = -v.x;
 	temp.y = -v.y;
