@@ -17,7 +17,7 @@ int main(int argc, char *argv[]){
 	BackGround->createTexture(rend);
 	///Player
 	Player *play = new Player();
-	play->setfilename("Tree.bmp");
+	play->setfilename("Tree2.bmp");
 	play->createTexture(rend);
 	///Create a hill
 	Texture *Hill = new Texture();
@@ -42,22 +42,22 @@ int main(int argc, char *argv[]){
 					play->movingL = true;
 					play->movingR = false;
 					play->idle = false;
-					play->isJumping = false;
 					break;
 				case SDLK_RIGHT:
 					play->movingR = true;
 					play->movingL = false;
 					play->idle = false;
-					play->isJumping = false;
 					break;
-				case SDLK_SPACE :
+				case SDLK_UP :
 					play->isJumping = true;
 					play->movingR = false;
 					play->movingL = false;
 					play->idle = false;
-	
+					break;
 				default:
 					play->idle = true;
+					break;
+					
 				}
 				break;
 
@@ -69,22 +69,28 @@ int main(int argc, char *argv[]){
 				break;
 			}
 		}
-
+		
 		unsigned int current = SDL_GetTicks();
 		float DT = (float)(current - lastTime) / 100000.0f;
+		
 		lastTime = current;
+		
+		
 		///Sets background default colour (not accustom to Hex so using default from labs)
 		SDL_SetRenderDrawColor(rend, 0xFF, 0x0, 0x0, 0xFF);
 		SDL_RenderClear(rend);
 		///Draw my background to the screen
 		BackGround->Draw(Vec2(0,0),winWid,winLen,Vec2(0,0), rend);
 		Hill->Draw(Vec2(0, winLen-72), levelWid, 72, Vec2(0, 0), rend);
-		play->Draw(play->getPos(), 77, 132, Vec2(0, 0), rend);
+		///Setting up for animating sprites ^^		
+		play->Draw(play->getPos(), 77, 136, rend);
+			
 
 		SDL_RenderPresent(rend);
-
+		float g = play->getVel().y;
 		//Updating Movement constantly x
 		play->movement(DT);
+		
 	}
 	///pause before we leave
 	SDL_Delay(2000);
