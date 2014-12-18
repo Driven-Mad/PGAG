@@ -9,6 +9,12 @@ Vec2::Vec2(float a, float b, float c) : x(a), y(b), w(c) {}
 
 Vec2::~Vec2(){
 }
+const bool& Vec2::operator ==(const Vec2& v){
+	if (x == v.x && y == v.y && w == v.w)
+		return true;
+	else
+		return false;
+}
 ///+= operation for Vec2
 const Vec2& Vec2::operator +=(const Vec2& v){
 	x += v.x;

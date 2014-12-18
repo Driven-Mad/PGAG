@@ -2,6 +2,7 @@
 #define TEXTURE_H
 #include <iostream>
 #include <SDL.h>
+#include "Vec2.h"
 
 class Texture{
 public:
@@ -9,12 +10,27 @@ public:
 	~Texture();
 	///function to create a texture
 	SDL_Texture* createTexture(SDL_Renderer *renderer);
+	SDL_Texture* getText();
+	void setTexture(SDL_Texture *t);
 	///getter for filename
 	std::string getfilename();
 	///setter for filename
 	void setfilename(std::string s);
 	///Draws Texture to screen
-	void Draw(int TposX, int TposY, int Twidth, int Theight, int RposX, int RposY, int Rwidth, int Rheight, SDL_Renderer *r);
+	void Texture::Draw(Vec2 texturePosition, int width, int height, Vec2 renderPosition, SDL_Renderer *r){
+		SDL_Rect TextureSize;
+		TextureSize.x = texturePosition.x;
+		TextureSize.y = texturePosition.y;
+		TextureSize.h = height;
+		TextureSize.w = width;
+		SDL_Rect RenderSize;
+		RenderSize.x = renderPosition.x;
+		RenderSize.y = renderPosition.y;
+		RenderSize.h = height;
+		RenderSize.w = width;
+		//SDL_QueryTexture(text, NULL, NULL, &des.w, &des.h);
+		SDL_RenderCopy(r, text, &RenderSize, &TextureSize);
+	}
 private:
 	///File Name for Texture
 	std::string filename;

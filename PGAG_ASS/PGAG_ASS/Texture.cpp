@@ -1,7 +1,7 @@
 #include "Texture.h"
 
 Texture::Texture(){
-	SDL_Texture *text = NULL;
+	Texture::text = NULL;
 }
 
 
@@ -61,17 +61,11 @@ void Texture::setfilename(std::string s){
 	filename = s;
 }
 
-void Texture::Draw(int TposX, int TposY, int Twidth, int Theight, int RposX, int RposY, int Rwidth, int Rheight, SDL_Renderer *r){
-	SDL_Rect TextureSize;
-	TextureSize.x = TposX;
-	TextureSize.y = TposY;
-	TextureSize.h = Theight;
-	TextureSize.w = Twidth;
-	SDL_Rect RenderSize;
-	RenderSize.x = RposX;
-	RenderSize.y = RposY;
-	RenderSize.h = Rheight;
-	RenderSize.w = Rwidth;
-	//SDL_QueryTexture(text, NULL, NULL, &des.w, &des.h);
-	SDL_RenderCopy(r, text, &RenderSize, &TextureSize);
+SDL_Texture* Texture::getText()
+{
+	return text;
+}
+void Texture::setTexture(SDL_Texture *t)
+{
+	text = t;
 }
