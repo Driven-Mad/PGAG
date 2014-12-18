@@ -50,11 +50,17 @@ public:
 	Vec2 getVel();
 	void setVel(Vec2 v);
 	bool movingL, movingR, isJumping, idle, onGround;
+	int getHealth();
+	void setHealth(int i);
+	int getMagic();
+	void setMagic(int i);
 	
 
 private:
 	Vec2 pos;
 	Vec2 vel;
 	int stance;
+	int health;
+	int magic;
 };
 

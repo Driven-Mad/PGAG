@@ -1,9 +1,13 @@
 #include "Game.h"
+#include "Vec2.h"
+#include "Texture.h"
+#include "Player.h"
 #include <iostream>
 
 Game::Game(){
 	
 	//DT = 0.0f;
+	Texture::setTexture(NULL);
 	unsigned int lastTime = SDL_GetTicks();
 }
 
@@ -29,9 +33,6 @@ SDL_Renderer* Game::init(){
 
 	SDL_Renderer *rend = SDL_CreateRenderer(window, -1, 0);
 	return rend;
-}
-void Game::draw(SDL_Renderer *R)
-{
 }
 
 void Game::updateTimer(){

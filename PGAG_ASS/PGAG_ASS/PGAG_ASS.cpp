@@ -23,21 +23,29 @@ int main(int argc, char *argv[]){
 	Texture *Hill = new Texture();
 	Hill->setfilename("Hill.bmp");
 	Hill->createTexture(rend);
+
+	Texture *Health = new Texture();
+	Health->setfilename("Health.bmp");
+	Health->createTexture(rend);
+
+	Texture *Magic = new Texture();
+	Magic->setfilename("Magic.bmp");
+	Magic->createTexture(rend);
+
+	Texture *Seed = new Texture();
+	Seed->setfilename("Seed.bmp");
+	Seed->createTexture(rend);
+	///Bool for play while loop;
 	bool playing = true;
 	while (playing){
-		
-		
 		SDL_Event incoming;
-		
 		while (SDL_PollEvent(&incoming)){
 			switch (incoming.type){
 			case SDL_QUIT:
 				playing = false;
 				break;
 			case SDL_KEYDOWN:
-				switch (incoming.key.keysym.sym)
-				{
-
+				switch (incoming.key.keysym.sym){
 				case SDLK_LEFT:
 					play->movingL = true;
 					play->movingR = false;
@@ -57,10 +65,8 @@ int main(int argc, char *argv[]){
 				default:
 					play->idle = true;
 					break;
-					
 				}
 				break;
-
 			case SDL_KEYUP:
 				play->idle = true;
 				play->movingL = false;
@@ -69,10 +75,8 @@ int main(int argc, char *argv[]){
 				break;
 			}
 		}
-		
 		unsigned int current = SDL_GetTicks();
 		float DT = (float)(current - lastTime) / 100000.0f;
-		
 		lastTime = current;
 		
 		
@@ -81,13 +85,16 @@ int main(int argc, char *argv[]){
 		SDL_RenderClear(rend);
 		///Draw my background to the screen
 		BackGround->Draw(Vec2(0,0),winWid,winLen,Vec2(0,0), rend);
+		///Draw a flat Hill;
 		Hill->Draw(Vec2(0, winLen-72), levelWid, 72, Vec2(0, 0), rend);
+		///Draw health bar/Update it based on players health
+		Health->Draw(Vec2(0, 0), 86,80, Vec2(play->getHealth()*86, 0), rend);
+		///Draw Magic bar/Update it based on players Magic
+		Magic->Draw(Vec2(winWid-80, 0), 86, 80, Vec2(play->getMagic() * 86, 0), rend);
+		
 		///Setting up for animating sprites ^^		
 		play->Draw(play->getPos(), 77, 136, rend);
-			
-
 		SDL_RenderPresent(rend);
-		float g = play->getVel().y;
 		//Updating Movement constantly x
 		play->movement(DT);
 		

@@ -10,6 +10,8 @@ Player::Player(){
 	movingR = false;
 	isJumping = false;
 	idle = true;
+	magic = 0;
+	health = 4;
 }
 
 
@@ -18,6 +20,19 @@ Player::~Player(){
 		SDL_DestroyTexture(Texture::getText());
 	}
 }
+int Player::getHealth(){
+	return health;
+}
+void Player::setHealth(int i){
+	health = i;
+}
+int Player::getMagic(){
+	return magic;
+}
+void Player::setMagic(int i){
+	magic = i;
+}
+
 
 
 Vec2 Player::getPos(){
