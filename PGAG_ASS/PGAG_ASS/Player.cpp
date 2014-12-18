@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "Game.h"
+#include "Seeds.h"
 
 
 Player::Player(){
@@ -69,7 +70,6 @@ void Player::movement(float DT)
  		isJumping = false;
 		idle = true;
 	}
-	
 	if (pos.y > 594)
 	{
 		pos.y = 594;

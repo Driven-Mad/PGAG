@@ -1,9 +1,11 @@
 #include <iostream>
 #include <SDL.h>
+#include "Seeds.h"
 #include "Vec2.h"
 #include "Player.h"
 #include "Texture.h"
 #include "Game.h"
+#include <vector>
 
 int main(int argc, char *argv[]){
 	int levelx = 0, levely = 0, levelWid = 2048, levelLen = 1536;
@@ -32,9 +34,12 @@ int main(int argc, char *argv[]){
 	Magic->setfilename("Magic.bmp");
 	Magic->createTexture(rend);
 
-	Texture *Seed = new Texture();
-	Seed->setfilename("Seed.bmp");
-	Seed->createTexture(rend);
+	Seeds Seed[4] ;
+	for (int i = 0; i < 4; i++){
+		Seed[i].createTexture(rend);
+	}
+	//exture *Seed = new Texture();
+	//Seed->createTexture(rend);
 	///Bool for play while loop;
 	bool playing = true;
 	while (playing){
@@ -92,6 +97,15 @@ int main(int argc, char *argv[]){
 		///Draw Magic bar/Update it based on players Magic
 		Magic->Draw(Vec2(winWid-80, 0), 86, 80, Vec2(play->getMagic() * 86, 0), rend);
 		
+		///seeds for power ups
+		for (int i = 0; i < 4; i++){
+			Seed[i].Draw(17.4, 17, i, rend);
+			if (play->getPos().x == Seed[i].POS){
+				Seed[i].~Seeds();
+				play->setMagic(play->getMagic() + 1);
+			}
+		}
+	
 		///Setting up for animating sprites ^^		
 		play->Draw(play->getPos(), 77, 136, rend);
 		SDL_RenderPresent(rend);
