@@ -4,6 +4,7 @@
 #include "Vec2.h"
 #include "Player.h"
 #include "Texture.h"
+#include "Enemy.h"
 #include "Game.h"
 #include <vector>
 
@@ -34,8 +35,12 @@ int main(int argc, char *argv[]){
 	Magic->setfilename("Magic.bmp");
 	Magic->createTexture(rend);
 
-	Seeds Seed[4] ;
+	Enemy *En = new Enemy();
+	En->createTexture(rend);
+
+	Seeds Seed[4];
 	for (int i = 0; i < 4; i++){
+		Seed[i].setPos(Vec2(rand() % 900 + 100, 700));
 		Seed[i].createTexture(rend);
 	}
 	//exture *Seed = new Texture();
@@ -96,21 +101,30 @@ int main(int argc, char *argv[]){
 		Health->Draw(Vec2(0, 0), 86,80, Vec2(play->getHealth()*86, 0), rend);
 		///Draw Magic bar/Update it based on players Magic
 		Magic->Draw(Vec2(winWid-80, 0), 86, 80, Vec2(play->getMagic() * 86, 0), rend);
-		
-		///seeds for power ups
+		///Adding magic per pick up of the seed, and Checking if the seed is active anymore
 		for (int i = 0; i < 4; i++){
-			Seed[i].Draw(17.4, 17, i, rend);
-			if (play->getPos().x == Seed[i].POS){
+			if (play->getPos().x+30 >= (Seed[i].getPos().x - 5) && 
+				play->getPos().x+30 <= (Seed[i].getPos().x + 5) && Seed[i].isActive){
+				Seed[i].isActive = false;
 				Seed[i].~Seeds();
 				play->setMagic(play->getMagic() + 1);
 			}
 		}
-	
+		///seeds for power ups
+		for (int i = 0; i < 4; i++){
+			Seed[i].Draw(17.4, 17, i, rend);
+		}
+		En->Draw(100, 70, rend);
 		///Setting up for animating sprites ^^		
 		play->Draw(play->getPos(), 77, 136, rend);
 		SDL_RenderPresent(rend);
 		//Updating Movement constantly x
-		play->movement(DT);
+		play->update(DT);
+		play->health = En->update(play->getPos().x,DT,play->health);
+		if (play->health < 0)
+		{
+			playing = false;
+		}
 		
 	}
 	///pause before we leave

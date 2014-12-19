@@ -44,7 +44,7 @@ public:
 		SDL_RenderCopy(r, Texture::getText(), &RenderSize, &TextureSize);
 	}
 	
-	void movement(float DT);
+	void update(float DT);
 	Vec2 getPos();
 	void setPos(Vec2 p);
 	Vec2 getVel();
@@ -54,13 +54,12 @@ public:
 	void setHealth(int i);
 	int getMagic();
 	void setMagic(int i);
-	
+	int health;
 
 private:
 	Vec2 pos;
 	Vec2 vel;
 	int stance;
-	int health;
 	int magic;
 };
 

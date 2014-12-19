@@ -48,7 +48,7 @@ Vec2 Player::getVel(){
 void Player::setVel(Vec2 v){
 	vel = v;
 }
-void Player::movement(float DT)
+void Player::update(float DT)
 {
 
 	pos.x = ((pos.x + (vel.x * DT)));
@@ -103,6 +103,7 @@ void Player::movement(float DT)
 	default:
 		break;
 	}
+	
 
 }
 
