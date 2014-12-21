@@ -6,6 +6,7 @@
 #include "Texture.h"
 #include "Enemy.h"
 #include "Game.h"
+#include "Camera.h"
 #include <vector>
 
 int main(int argc, char *argv[]){
@@ -18,6 +19,8 @@ int main(int argc, char *argv[]){
 	Texture *BackGround = new Texture();
 	BackGround->setfilename("Space.bmp");
 	BackGround->createTexture(rend);
+
+	Camera cam;
 	///Player
 	Player *play = new Player();
 	play->setfilename("Tree2.bmp");
@@ -40,7 +43,7 @@ int main(int argc, char *argv[]){
 
 	Seeds Seed[4];
 	for (int i = 0; i < 4; i++){
-		Seed[i].setPos(Vec2(rand() % 900 + 100, 700));
+		Seed[i].setPos(Vec2(rand() % 2000 + 100, levelLen-30));
 		Seed[i].createTexture(rend);
 	}
 	//exture *Seed = new Texture();
@@ -89,18 +92,18 @@ int main(int argc, char *argv[]){
 		float DT = (float)(current - lastTime) / 100000.0f;
 		lastTime = current;
 		
-		
+		cam.update(play->getPos());
 		///Sets background default colour (not accustom to Hex so using default from labs)
 		SDL_SetRenderDrawColor(rend, 0xFF, 0x0, 0x0, 0xFF);
 		SDL_RenderClear(rend);
 		///Draw my background to the screen
-		BackGround->Draw(Vec2(0,0),winWid,winLen,Vec2(0,0), rend);
+		BackGround->Draw(-cam.getPos(), levelWid, levelLen, Vec2(0, 0), winWid, winLen, rend);
 		///Draw a flat Hill;
-		Hill->Draw(Vec2(0, winLen-72), levelWid, 72, Vec2(0, 0), rend);
+		Hill->Draw(Vec2(-cam.getPos().x, winLen - 72), levelWid, 72, Vec2(0, 0), levelWid, 72, rend);
 		///Draw health bar/Update it based on players health
-		Health->Draw(Vec2(0, 0), 86,80, Vec2(play->getHealth()*86, 0), rend);
+		Health->Draw(Vec2(0, 0), 86, 80, Vec2(play->getHealth() * 86, 0), 86, 80, rend);
 		///Draw Magic bar/Update it based on players Magic
-		Magic->Draw(Vec2(winWid-80, 0), 86, 80, Vec2(play->getMagic() * 86, 0), rend);
+		Magic->Draw(Vec2(winWid - 80, 0), 86, 80, Vec2(play->getMagic() * 86, 0),86, 80, rend);
 		///Adding magic per pick up of the seed, and Checking if the seed is active anymore
 		for (int i = 0; i < 4; i++){
 			if (play->getPos().x+30 >= (Seed[i].getPos().x - 5) && 
@@ -116,7 +119,7 @@ int main(int argc, char *argv[]){
 		}
 		En->Draw(100, 70, rend);
 		///Setting up for animating sprites ^^		
-		play->Draw(play->getPos(), 77, 136, rend);
+		play->Draw(cam.getPos(), 77, 136, rend);
 		SDL_RenderPresent(rend);
 		//Updating Movement constantly x
 		play->update(DT);

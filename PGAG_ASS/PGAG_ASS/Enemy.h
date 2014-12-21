@@ -44,9 +44,9 @@ public:
 
 	Enemy();
 	~Enemy();
-	void update();
 private:
 	int health;
+	bool startTimer;
 	Vec2 Position, Vel;
 	bool recentlyAttacked;
 	bool movingL, movingR, idle, attackL, attackR;

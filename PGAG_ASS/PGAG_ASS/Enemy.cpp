@@ -9,6 +9,7 @@ Enemy::Enemy()
 	attackL = attackR = movingL = movingR = recentlyAttacked = false;
 	Position = Vec2(900, 650);
 	timer = 0;
+	startTimer = false;
 }
 
 Enemy::~Enemy()
@@ -16,36 +17,51 @@ Enemy::~Enemy()
 }
 
 int Enemy::update(float pos, float DT, int health){
-	unsigned int current = SDL_GetTicks();
+	//updating position
 	Position.x = ((Position.x + (Vel.x * DT)));
 	Position.y = ((Position.y + (Vel.y * DT)));
-	Uint32 tempSeconds = current / 100;
-	timer = tempSeconds % 15;
-	if (recentlyAttacked && timer > 0)
-	{
+	if (Position.x < 0){
+		Position.x = 0;
+	}
+	if (Position.x + 77 > 2048){
+		Position.x = 2048 - 100;
+	}
+	if (Position.y < 0){
+		Position.y = 0;
+	}
+	if (Position.y + 136 > 1536){
+		Position.y = 1536 - 70;
+	}
+
+	//start a timer
+	if (startTimer == true){
 		idle = true;
 		attackL = attackR = movingL = movingR = false;
-		if (timer == 14){
-			timer = 0;
-			recentlyAttacked = false;
-		}
+		timer++;
 	}
-	
-	if (pos <= Position.x && !recentlyAttacked){
+		
+	if (timer == 1000){
+		startTimer = false;
+		timer = 0;
+		recentlyAttacked = false;
+	}
+	if (pos <= Position.x && recentlyAttacked==false){
 		Vel.x -= 20;
 		movingL = true;
 		attackL = attackR = idle = movingR = false;
 	}
-	if (pos >= Position.x && !recentlyAttacked){
+	if (pos >= Position.x && recentlyAttacked == false){
 		Vel.x += 20;
 		movingR = true;
 		attackL = attackR = movingL = idle = false;
 	}
 	if (pos + 30 >= (Position.x - 5) &&
-		pos + 30 <= (Position.x + 5)&& !recentlyAttacked){
+		pos + 30 <= (Position.x + 5) && 
+		recentlyAttacked == false){
 		Vel.x = 0;
+		//health -= 1;
 		recentlyAttacked = true;
-		health -= 1;
+		startTimer = true;
 	}
 	return health;
 }

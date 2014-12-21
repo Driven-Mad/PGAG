@@ -17,7 +17,7 @@ public:
 	///setter for filename
 	void setfilename(std::string s);
 	///Draws Texture to screen
-	void Texture::Draw(Vec2 texturePosition, int width, int height, Vec2 renderPosition, SDL_Renderer *r){
+	void Texture::Draw(Vec2 texturePosition, int width, int height, Vec2 renderPosition, int Rwidth, int Rheight, SDL_Renderer *r){
 		SDL_Rect TextureSize;
 		TextureSize.x = texturePosition.x;
 		TextureSize.y = texturePosition.y;
@@ -26,8 +26,8 @@ public:
 		SDL_Rect RenderSize;
 		RenderSize.x = renderPosition.x;
 		RenderSize.y = renderPosition.y;
-		RenderSize.h = height;
-		RenderSize.w = width;
+		RenderSize.h = Rheight;
+		RenderSize.w = Rwidth;
 		//SDL_QueryTexture(text, NULL, NULL, &des.w, &des.h);
 		SDL_RenderCopy(r, text, &RenderSize, &TextureSize);
 	}

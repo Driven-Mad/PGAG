@@ -48,6 +48,7 @@ public:
 	Vec2 getPos();
 	void setPos(Vec2 p);
 	Vec2 getVel();
+
 	void setVel(Vec2 v);
 	bool movingL, movingR, isJumping, idle, onGround;
 	int getHealth();
