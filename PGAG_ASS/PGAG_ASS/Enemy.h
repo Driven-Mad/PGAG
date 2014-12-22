@@ -5,7 +5,7 @@
 class Enemy : public Texture
 {
 public:
-	void Enemy::Draw(int width, int height, SDL_Renderer *r){
+	void Enemy::Draw(Vec2 Texturesize, int width, int height, SDL_Renderer *r){
 		unsigned int current = SDL_GetTicks();
 		SDL_Rect RenderSize;
 		SDL_Rect TextureSize;
@@ -34,14 +34,14 @@ public:
 		}
 		RenderSize.h = height;
 		RenderSize.w = width;
-		TextureSize.x = Position.x;
-		TextureSize.y = Position.y;
+		TextureSize.x = Texturesize.x;
+		TextureSize.y = Texturesize.y;
 		TextureSize.h = height;
 		TextureSize.w = width;
 		SDL_RenderCopy(r, Texture::getText(), &RenderSize, &TextureSize);
 	}
 	int update(float pos, float DT, int health);
-
+	Vec2 getPos();
 	Enemy();
 	~Enemy();
 private:

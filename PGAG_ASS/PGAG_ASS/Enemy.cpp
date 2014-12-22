@@ -7,13 +7,16 @@ Enemy::Enemy()
 	setfilename("Enemy.bmp");
 	idle = true;
 	attackL = attackR = movingL = movingR = recentlyAttacked = false;
-	Position = Vec2(900, 650);
+	Position = Vec2(900, 700);
 	timer = 0;
 	startTimer = false;
 }
 
 Enemy::~Enemy()
 {
+}
+Vec2 Enemy::getPos(){
+	return Position;
 }
 
 int Enemy::update(float pos, float DT, int health){
@@ -23,14 +26,14 @@ int Enemy::update(float pos, float DT, int health){
 	if (Position.x < 0){
 		Position.x = 0;
 	}
-	if (Position.x + 77 > 2048){
+	if (Position.x + 100 > 2048){
 		Position.x = 2048 - 100;
 	}
 	if (Position.y < 0){
 		Position.y = 0;
 	}
-	if (Position.y + 136 > 1536){
-		Position.y = 1536 - 70;
+	if (Position.y + 70 > 700){
+		Position.y = 700 - 70;
 	}
 
 	//start a timer

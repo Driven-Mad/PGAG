@@ -10,7 +10,7 @@
 #include <vector>
 
 int main(int argc, char *argv[]){
-	int levelx = 0, levely = 0, levelWid = 2048, levelLen = 1536;
+	int levelx = 0, levely = 0, levelWid = 2048, levelLen = 768;
 	int winX = 100, winY = 100, winWid = 1024, winLen = 768;
 	Game App;
 	SDL_Renderer *rend = App.init();
@@ -43,7 +43,7 @@ int main(int argc, char *argv[]){
 
 	Seeds Seed[4];
 	for (int i = 0; i < 4; i++){
-		Seed[i].setPos(Vec2(rand() % 2000 + 100, levelLen-30));
+		Seed[i].setPos(Vec2(rand() % 1900 + 100, winLen-80));
 		Seed[i].createTexture(rend);
 	}
 	//exture *Seed = new Texture();
@@ -106,8 +106,8 @@ int main(int argc, char *argv[]){
 		Magic->Draw(Vec2(winWid - 80, 0), 86, 80, Vec2(play->getMagic() * 86, 0),86, 80, rend);
 		///Adding magic per pick up of the seed, and Checking if the seed is active anymore
 		for (int i = 0; i < 4; i++){
-			if (play->getPos().x+30 >= (Seed[i].getPos().x - 5) && 
-				play->getPos().x+30 <= (Seed[i].getPos().x + 5) && Seed[i].isActive){
+			if (play->getPos().x + 30 >= (Seed[i].getPos().x - 5) && 
+				play->getPos().x + 30 <= (Seed[i].getPos().x + 5)  && Seed[i].isActive){
 				Seed[i].isActive = false;
 				Seed[i].~Seeds();
 				play->setMagic(play->getMagic() + 1);
@@ -115,11 +115,11 @@ int main(int argc, char *argv[]){
 		}
 		///seeds for power ups
 		for (int i = 0; i < 4; i++){
-			Seed[i].Draw(17.4, 17, i, rend);
+			Seed[i].Draw(Vec2((Seed[i].getPos().x - cam.getPos().x), Seed[i].getPos().y), 17.4, 17, i, rend);
 		}
-		En->Draw(100, 70, rend);
+		En->Draw(Vec2((En->getPos().x - cam.getPos().x), En->getPos().y), 100, 70, rend);
 		///Setting up for animating sprites ^^		
-		play->Draw(cam.getPos(), 77, 136, rend);
+		play->Draw(Vec2((play->getPos().x - cam.getPos().x), play->getPos().y), 77, 136, rend);
 		SDL_RenderPresent(rend);
 		//Updating Movement constantly x
 		play->update(DT);

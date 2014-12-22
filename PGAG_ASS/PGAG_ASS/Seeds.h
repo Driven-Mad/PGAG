@@ -3,7 +3,7 @@
 class Seeds : public Texture
 {
 public:
-	void Seeds::Draw( int width, int height, int rand, SDL_Renderer *r){
+	void Seeds::Draw( Vec2 pos, int width, int height, int rand, SDL_Renderer *r){
 		unsigned int current = SDL_GetTicks();
 		SDL_Rect RenderSize;
 		SDL_Rect TextureSize;
@@ -13,8 +13,8 @@ public:
 		RenderSize.y = 0;
 		RenderSize.h = height;
 		RenderSize.w = width;
-		TextureSize.x = Position.x;
-		TextureSize.y = Position.y;
+		TextureSize.x = pos.x;
+		TextureSize.y = pos.y;
 		TextureSize.h = height;
 		TextureSize.w = width;
 

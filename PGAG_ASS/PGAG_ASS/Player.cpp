@@ -5,7 +5,7 @@
 
 Player::Player(){
 	Texture::setTexture(NULL);
-	pos = Vec2(500.0f, 1358.0f);
+	pos = Vec2(0.0f, 590.0f);
 	vel = Vec2(0.0f, 0.0f);
 	movingL = false;
 	movingR = false;
@@ -64,8 +64,8 @@ void Player::update(float DT)
 	if (pos.y < 0){
 		pos.y = 0;
 	}
-	if (pos.y + 136 > 1536){
-		pos.y = 1536 - 136;
+	if (pos.y + 136 > 768){
+		pos.y = 768 - 136;
 	}
 	if (idle){
 		stance = 0;
@@ -80,13 +80,13 @@ void Player::update(float DT)
 		stance = 3;
 		onGround = false;
 	}
-	if (pos.y <=1200){
+	if (pos.y <=450){
  		isJumping = false;
 		idle = true;
 	}
-	if (pos.y >1328.0f)
+	if (pos.y >590)
 	{
-		pos.y = 1328.0f;
+		pos.y = 590;
 		onGround = true;
 		vel.y = 0;
 	}
