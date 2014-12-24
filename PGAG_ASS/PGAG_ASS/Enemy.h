@@ -1,17 +1,18 @@
-#pragma once
+#ifndef ENEMY_H
+#define ENEMY_H
 #include "Texture.h"
-#include "Vec2.h"
 #include "Player.h"
-class Enemy : public Texture
-{
+#include "Vec2.h"
+#include "Camera.h"
+class Enemy : public Texture{
 public:
-	void Enemy::Draw(Vec2 Texturesize, int width, int height, SDL_Renderer *r){
+	Enemy();
+	~Enemy();
+	///Virtual function from Texture so it can be re-defiened
+	void Enemy::Draw(Camera *c, SDL_Renderer *r){
 		unsigned int current = SDL_GetTicks();
-		SDL_Rect RenderSize;
-		SDL_Rect TextureSize;
-		float temp = float((current / 100) % 6);
-		float temp2 = float((current / 100) % 4);
-		float temp3 = float((current / 100) % 3);
+		SDL_Rect RenderSize, TextureSize;
+		float temp = float((current / 100) % 6), temp2 = float((current / 100) % 4), temp3 = float((current / 100) % 3);
 		if (movingL){
 			RenderSize.x = int(temp * 100);
 			RenderSize.y = 440;
@@ -32,25 +33,27 @@ public:
 			RenderSize.x = int(temp3 * 100);
 			RenderSize.y = 0;
 		}
-		RenderSize.h = height;
-		RenderSize.w = width;
-		TextureSize.x = int(Texturesize.x);
-		TextureSize.y = int(Texturesize.y);
-		TextureSize.h = height;
-		TextureSize.w = width;
+		RenderSize.h = 70;
+		RenderSize.w = 100;
+		TextureSize.x = int(Position.x - c->getPos().x);
+		TextureSize.y = int(Position.y);
+		TextureSize.h = 70;
+		TextureSize.w = 100;
 		SDL_RenderCopy(r, Texture::getText(), &RenderSize, &TextureSize);
 	}
-	int update(float pos, float DT, int health);
+	///Update function, taking in the players position, Delta Timer and health of player.
+	void update(Player *p, float DT);
+	///Get the position of the enemy.
 	Vec2 getPos();
-	Enemy();
-	~Enemy();
+
 private:
-	int health;
-	bool startTimer;
+	///Private Variables
+	///Vec2s
 	Vec2 Position, Vel;
-	bool recentlyAttacked;
-	bool movingL, movingR, idle, attackL, attackR;
+	///Ints
 	int timer;
-
+	///Bools
+	bool startTimer, recentlyAttacked, movingL, movingR, idle, attackL, attackR;
+	
 };
-
+#endif;

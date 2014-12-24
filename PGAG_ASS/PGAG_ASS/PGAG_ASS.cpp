@@ -43,7 +43,7 @@ int main(int argc, char *argv[]){
 		Seed[i].setPos(Vec2(float(rand() % 1700 + 100), float(winLen-80)));
 		Seed[i].createTexture(rend);
 	}
-	Camera cam;
+	Camera *cam = new Camera();
 	///////////////////////////////////////////->
 	///Bool for play while loop;
 	bool playing = true;
@@ -58,19 +58,12 @@ int main(int argc, char *argv[]){
 				switch (incoming.key.keysym.sym){
 				case SDLK_LEFT:
 					play->movingL = true;
-					play->movingR = false;
-					play->idle = false;
 					break;
 				case SDLK_RIGHT:
 					play->movingR = true;
-					play->movingL = false;
-					play->idle = false;
 					break;
 				case SDLK_UP :
 					play->isJumping = true;
-					play->movingR = false;
-					play->movingL = false;
-					play->idle = false;
 					break;
 				default:
 					play->idle = true;
@@ -86,27 +79,26 @@ int main(int argc, char *argv[]){
 			}
 		}
 
-		//Creating a DT
+		///Creating a DT
 		unsigned int current = SDL_GetTicks();
 		float DT = (float)(current - lastTime) / 100000.0f;
 		lastTime = current;
-	
 		///Sets background default colour
 		SDL_SetRenderDrawColor(rend, 0xFF, 0xFF, 0xFF, 0xFF);
 		SDL_RenderClear(rend);
 		//////////////////
 		///Drawring///////
 		//////////////////->
-		BackGround->Draw(-cam.getPos(), levelWid, levelLen, Vec2(0, 0), winWid, winLen, rend);
-		Hill->Draw(Vec2(-cam.getPos().x, float(winLen) - 72.0f), levelWid, 72, Vec2(0.0f, 0.0f), levelWid, 72, rend);
-		Blockade->Draw(Vec2(1800 - cam.getPos().x, float(winLen) - 300.0f), 200, 300, Vec2(0, 0), levelWid, 72, rend);
+		BackGround->Draw(-cam->getPos(), levelWid, levelLen, Vec2(0, 0), winWid, winLen, rend);
+		Hill->Draw(Vec2(-cam->getPos().x, float(winLen) - 72.0f), levelWid, 72, Vec2(0.0f, 0.0f), levelWid, 72, rend);
+		Blockade->Draw(Vec2(1800 - cam->getPos().x, float(winLen) - 300.0f), 200, 300, Vec2(0, 0), levelWid, 72, rend);
 		Health->Draw(Vec2(0.0f, 0.0f), 86, 80, Vec2(play->getHealth() * 86.0f, 0.0f), 86, 80, rend);
 		Magic->Draw(Vec2(winWid - 80.0f, 0.0f), 86, 80, Vec2(play->getMagic() * 86.0f, 0.0f),86, 80, rend);
 		for (int i = 0; i < 4; i++){
-			Seed[i].Draw(Vec2((Seed[i].getPos().x - cam.getPos().x), Seed[i].getPos().y), int(17.4), 17, i, rend);
+			Seed[i].Draw(cam, rend);
 		}
-		En->Draw(Vec2((En->getPos().x - cam.getPos().x), En->getPos().y), 100, 70, rend);	
-		play->Draw(Vec2((play->getPos().x - cam.getPos().x), play->getPos().y), 77, 136, rend);
+		En->Draw(cam, rend);
+		play->Draw(cam, rend);
 		//////////////////->
 
 		//////////////////
@@ -115,10 +107,10 @@ int main(int argc, char *argv[]){
 		for (int i = 0; i < 4; i++){
 			Seed[i].update(play);
 		}
-		cam.update(play->getPos());
+		cam->update(play->getPos());
 		play->update(DT);
-		play->health = En->update(play->getPos().x,DT,play->health);
-		if (play->health < 0)
+		En->update(play,DT);
+		if (play->getHealth() < 0)
 		{
 			playing = false;
 		}

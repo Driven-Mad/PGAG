@@ -1,10 +1,12 @@
-#pragma once
+#ifndef SEED_H
+#define SEED_H
 #include "Texture.h"
+#include "Camera.h"
 #include "Player.h"
 class Seeds : public Texture
 {
 public:
-	void Seeds::Draw( Vec2 pos, int width, int height, int rand, SDL_Renderer *r){
+	void Seeds::Draw( Camera *c, SDL_Renderer *r){
 		unsigned int current = SDL_GetTicks();
 		SDL_Rect RenderSize;
 		SDL_Rect TextureSize;
@@ -12,12 +14,12 @@ public:
 		
 		RenderSize.x = int(temp *17.4);
 		RenderSize.y = 0;
-		RenderSize.h = height;
-		RenderSize.w = width;
-		TextureSize.x = int(pos.x);
-		TextureSize.y = int(pos.y);
-		TextureSize.h = height;
-		TextureSize.w = width;
+		RenderSize.h = 17;
+		RenderSize.w = 17;
+		TextureSize.x = int(Position.x - c->getPos().x);
+		TextureSize.y = int(Position.y);
+		TextureSize.h = 17;
+		TextureSize.w = 17;
 
 		SDL_RenderCopy(r, Texture::getText(), &RenderSize, &TextureSize);
 	}
@@ -30,4 +32,4 @@ public:
 private:
 	Vec2 Position;
 };
-
+#endif

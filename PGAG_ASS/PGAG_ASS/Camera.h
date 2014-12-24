@@ -1,19 +1,20 @@
-#pragma once
+#ifndef CAMERA_H
+#define CAMERA_H
 #include "Vec2.h"
-#include "Player.h"
-class Camera
-{
+class Camera{
 public:
 	Camera();
 	~Camera();
+	///Update Function based on players position
 	void update(Vec2 P);
-	Vec2 getPos();
 	void draw();
-	SDL_Rect getCam();
+	///Get position of the camera
+	Vec2 getPos();
 private:
+	///Private Variables
+	///Vec2's
 	Vec2 position;
-	int levelx, levely , levelWid , levelLen;
-	int winX , winY ,winWid, winLen;
-	SDL_Rect camera;
+	///Int's
+	int levelWid , levelLen, winWid;
 };
-
+#endif

@@ -1,8 +1,8 @@
 #include "Enemy.h"
 
 
-Enemy::Enemy()
-{
+///Enemy Constructor
+Enemy::Enemy(){
 	Texture::setTexture(NULL);
 	setfilename("Enemy.bmp");
 	idle = true;
@@ -11,18 +11,26 @@ Enemy::Enemy()
 	timer = 0;
 	startTimer = false;
 }
-
-Enemy::~Enemy()
-{
+///Enemy Destructor
+Enemy::~Enemy(){
+	if (Texture::getText()){
+		SDL_DestroyTexture(Texture::getText());
+	}
 }
+///////////////////////
+///Getters and Setters/
+///////////////////////
 Vec2 Enemy::getPos(){
 	return Position;
 }
-
-int Enemy::update(float pos, float DT, int health){
-	//updating position
+///////////////////
+///update Function/
+///////////////////
+void Enemy::update(Player *P, float DT){
+	///updating position constantly 
 	Position.x = ((Position.x + (Vel.x * DT)));
 	Position.y = ((Position.y + (Vel.y * DT)));
+	///stops the player going off screen
 	if (Position.x < 0){
 		Position.x = 0;
 	}
@@ -35,36 +43,39 @@ int Enemy::update(float pos, float DT, int health){
 	if (Position.y + 70 > 700){
 		Position.y = 700 - 70;
 	}
-
-	//start a timer
+	///start a timer
 	if (startTimer == true){
 		idle = true;
 		attackL = attackR = movingL = movingR = false;
 		timer++;
-	}
-		
+	}	
+	///When timer is 1000 restart it
 	if (timer == 1000){
 		startTimer = false;
 		timer = 0;
 		recentlyAttacked = false;
 	}
-	if (pos <= Position.x && recentlyAttacked==false){
+	///Checks to see if the enemy can move LEFT
+	if (P->getPos().x <= Position.x && recentlyAttacked==false){
 		Vel.x -= 20;
 		movingL = true;
 		attackL = attackR = idle = movingR = false;
 	}
-	if (pos >= Position.x && recentlyAttacked == false){
+	///Checks to see if the enemy can move RIGHT
+	if (P->getPos().x >= Position.x && recentlyAttacked == false){
 		Vel.x += 20;
 		movingR = true;
 		attackL = attackR = movingL = idle = false;
 	}
-	if (pos + 30 >= (Position.x - 5) &&
-		pos + 30 <= (Position.x + 5) && 
+	///Checks to see if the Player && Enemy are close enough to have the player be bitten AND if the player has been bitten recently
+	if (P->getPos().x + 30 >= (Position.x - 5) &&
+		P->getPos().x + 30 <= (Position.x + 5) &&
+		Position.y >= (P->getPos().y + 20) &&
+		Position.y <= (P->getPos().y + 50) &&
 		recentlyAttacked == false){
 		Vel.x = 0;
-		//health -= 1;
+		P->setHealth(P->getHealth() - 1);
 		recentlyAttacked = true;
 		startTimer = true;
 	}
-	return health;
 }

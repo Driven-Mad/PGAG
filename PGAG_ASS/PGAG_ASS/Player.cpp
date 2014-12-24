@@ -1,8 +1,6 @@
+
 #include "Player.h"
-#include "Game.h"
-#include "Seeds.h"
-
-
+///Constructor
 Player::Player(){
 	Texture::setTexture(NULL);
 	pos = Vec2(0.0f, 590.0f);
@@ -14,13 +12,15 @@ Player::Player(){
 	magic = 0;
 	health = 4;
 }
-
-
+///Destructor
 Player::~Player(){
 	if (Texture::getText()){
 		SDL_DestroyTexture(Texture::getText());
 	}
 }
+///////////////////////
+///Getters and Setters/
+///////////////////////
 int Player::getHealth(){
 	return health;
 }
@@ -33,9 +33,6 @@ int Player::getMagic(){
 void Player::setMagic(int i){
 	magic = i;
 }
-
-
-
 Vec2 Player::getPos(){
 	return pos;
 }
@@ -48,13 +45,15 @@ Vec2 Player::getVel(){
 void Player::setVel(Vec2 v){
 	vel = v;
 }
+///////////////////
+///update Function/
+///////////////////
 void Player::update(float DT)
 {
-
-
+	///Constantly Adding Vel to the position of the player
 	pos.x = ((pos.x + (vel.x * DT)));
 	pos.y = ((pos.y + (vel.y * DT)));
-	//if player goes off screen
+	///if player goes off screen
 	if (pos.x < 0){
 		pos.x = 0;
 	}
@@ -67,6 +66,8 @@ void Player::update(float DT)
 	if (pos.y + 136 > 768){
 		pos.y = 768 - 136;
 	}
+
+	///set the stance based on bool stance
 	if (idle){
 		stance = 0;
 	}
@@ -80,33 +81,35 @@ void Player::update(float DT)
 		oldPos = pos;
 		stance = 3;
 		onGround = false;
+		idle = false;
 	}
+	///Jump only 100 pixels high
 	if (oldPos.y - pos.y >= 100.0f){
  		isJumping = false;
 		onGround = false;
 		idle = true;
 	}
+	///if the player gets up on the blockade
 	if ((pos.y > 367) &&
 		(pos.y < 369) &&
 		(pos.x + 30 >= 1800) &&
 		(pos.x + 30 <= 2000)){
 		onGround = true;
-		
 	}
 	else{
 		onGround = false;
 	}
-	if (pos.y >590)
-	{
+	///General floor
+	if (pos.y >590){
 		onGround = true;
 	}
+	///if on floor stops moving up and down
 	if (onGround){
 		vel.y = 0;
 		isJumping = false;
 	}
-
-	switch (stance)
-	{
+	///switch statment based on stances
+	switch (stance){
 	case 0:
 		vel.x = 0.0f;
 		if (isJumping == false && onGround == false){
@@ -131,8 +134,6 @@ void Player::update(float DT)
 	default:
 		break;
 	}
-	
-
 }
 
  

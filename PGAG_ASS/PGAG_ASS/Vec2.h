@@ -1,4 +1,6 @@
-#pragma once
+#ifndef VEC2_H
+#define VEC2_H
+#include <math.h>
 
 class Vec2{
 public:
@@ -97,3 +99,4 @@ inline const Vec2 operator -(const Vec2 v){
 	temp.y = -v.y;
 	return temp;
 }
+#endif
