@@ -33,6 +33,6 @@ void Camera::update(Vec2 P){
 	}
 	if (position.x > levelWid -winWid)
 	{
-		position.x = levelWid - winWid;
+		position.x = float(levelWid - winWid);
 	}
 }

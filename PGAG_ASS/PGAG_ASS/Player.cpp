@@ -76,19 +76,33 @@ void Player::update(float DT)
 	if (movingR){
 		stance = 2;
 	}
-	if (isJumping){
+	if (isJumping && onGround){
+		oldPos = pos;
 		stance = 3;
 		onGround = false;
 	}
-	if (pos.y <=450){
+	if (oldPos.y - pos.y >= 100.0f){
  		isJumping = false;
+		onGround = false;
 		idle = true;
+	}
+	if ((pos.y > 367) &&
+		(pos.y < 369) &&
+		(pos.x + 30 >= 1800) &&
+		(pos.x + 30 <= 2000)){
+		onGround = true;
+		
+	}
+	else{
+		onGround = false;
 	}
 	if (pos.y >590)
 	{
-		pos.y = 590;
 		onGround = true;
+	}
+	if (onGround){
 		vel.y = 0;
+		isJumping = false;
 	}
 
 	switch (stance)

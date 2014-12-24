@@ -19,13 +19,13 @@ public:
 	///Draws Texture to screen
 	void Texture::Draw(Vec2 texturePosition, int width, int height, Vec2 renderPosition, int Rwidth, int Rheight, SDL_Renderer *r){
 		SDL_Rect TextureSize;
-		TextureSize.x = texturePosition.x;
-		TextureSize.y = texturePosition.y;
+		TextureSize.x = int(texturePosition.x);
+		TextureSize.y = int(texturePosition.y);
 		TextureSize.h = height;
 		TextureSize.w = width;
 		SDL_Rect RenderSize;
-		RenderSize.x = renderPosition.x;
-		RenderSize.y = renderPosition.y;
+		RenderSize.x = int(renderPosition.x);
+		RenderSize.y = int(renderPosition.y);
 		RenderSize.h = Rheight;
 		RenderSize.w = Rwidth;
 		//SDL_QueryTexture(text, NULL, NULL, &des.w, &des.h);

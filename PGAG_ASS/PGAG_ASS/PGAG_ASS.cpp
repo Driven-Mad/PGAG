@@ -15,39 +15,36 @@ int main(int argc, char *argv[]){
 	Game App;
 	SDL_Renderer *rend = App.init();
 	unsigned int lastTime = SDL_GetTicks();
-	///Create our BackGround
+	///////////////////////////////////////////
+	///Initalising instances of Classes////////
+	///////////////////////////////////////////->
 	Texture *BackGround = new Texture();
 	BackGround->setfilename("Space.bmp");
 	BackGround->createTexture(rend);
-
-	Camera cam;
-	///Player
 	Player *play = new Player();
 	play->setfilename("Tree2.bmp");
 	play->createTexture(rend);
-	///Create a hill
+	Texture *Blockade = new Texture();
+	Blockade->setfilename("Hill.bmp");
+	Blockade->createTexture(rend);
 	Texture *Hill = new Texture();
 	Hill->setfilename("Hill.bmp");
 	Hill->createTexture(rend);
-
 	Texture *Health = new Texture();
 	Health->setfilename("Health.bmp");
 	Health->createTexture(rend);
-
 	Texture *Magic = new Texture();
 	Magic->setfilename("Magic.bmp");
 	Magic->createTexture(rend);
-
 	Enemy *En = new Enemy();
 	En->createTexture(rend);
-
 	Seeds Seed[4];
 	for (int i = 0; i < 4; i++){
-		Seed[i].setPos(Vec2(rand() % 1900 + 100, winLen-80));
+		Seed[i].setPos(Vec2(float(rand() % 1700 + 100), float(winLen-80)));
 		Seed[i].createTexture(rend);
 	}
-	//exture *Seed = new Texture();
-	//Seed->createTexture(rend);
+	Camera cam;
+	///////////////////////////////////////////->
 	///Bool for play while loop;
 	bool playing = true;
 	while (playing){
@@ -88,47 +85,45 @@ int main(int argc, char *argv[]){
 				break;
 			}
 		}
+
+		//Creating a DT
 		unsigned int current = SDL_GetTicks();
 		float DT = (float)(current - lastTime) / 100000.0f;
 		lastTime = current;
-		
-		cam.update(play->getPos());
-		///Sets background default colour (not accustom to Hex so using default from labs)
-		SDL_SetRenderDrawColor(rend, 0xFF, 0x0, 0x0, 0xFF);
+	
+		///Sets background default colour
+		SDL_SetRenderDrawColor(rend, 0xFF, 0xFF, 0xFF, 0xFF);
 		SDL_RenderClear(rend);
-		///Draw my background to the screen
+		//////////////////
+		///Drawring///////
+		//////////////////->
 		BackGround->Draw(-cam.getPos(), levelWid, levelLen, Vec2(0, 0), winWid, winLen, rend);
-		///Draw a flat Hill;
-		Hill->Draw(Vec2(-cam.getPos().x, winLen - 72), levelWid, 72, Vec2(0, 0), levelWid, 72, rend);
-		///Draw health bar/Update it based on players health
-		Health->Draw(Vec2(0, 0), 86, 80, Vec2(play->getHealth() * 86, 0), 86, 80, rend);
-		///Draw Magic bar/Update it based on players Magic
-		Magic->Draw(Vec2(winWid - 80, 0), 86, 80, Vec2(play->getMagic() * 86, 0),86, 80, rend);
-		///Adding magic per pick up of the seed, and Checking if the seed is active anymore
+		Hill->Draw(Vec2(-cam.getPos().x, float(winLen) - 72.0f), levelWid, 72, Vec2(0.0f, 0.0f), levelWid, 72, rend);
+		Blockade->Draw(Vec2(1800 - cam.getPos().x, float(winLen) - 300.0f), 200, 300, Vec2(0, 0), levelWid, 72, rend);
+		Health->Draw(Vec2(0.0f, 0.0f), 86, 80, Vec2(play->getHealth() * 86.0f, 0.0f), 86, 80, rend);
+		Magic->Draw(Vec2(winWid - 80.0f, 0.0f), 86, 80, Vec2(play->getMagic() * 86.0f, 0.0f),86, 80, rend);
 		for (int i = 0; i < 4; i++){
-			if (play->getPos().x + 30 >= (Seed[i].getPos().x - 5) && 
-				play->getPos().x + 30 <= (Seed[i].getPos().x + 5)  && Seed[i].isActive){
-				Seed[i].isActive = false;
-				Seed[i].~Seeds();
-				play->setMagic(play->getMagic() + 1);
-			}
+			Seed[i].Draw(Vec2((Seed[i].getPos().x - cam.getPos().x), Seed[i].getPos().y), int(17.4), 17, i, rend);
 		}
-		///seeds for power ups
-		for (int i = 0; i < 4; i++){
-			Seed[i].Draw(Vec2((Seed[i].getPos().x - cam.getPos().x), Seed[i].getPos().y), 17.4, 17, i, rend);
-		}
-		En->Draw(Vec2((En->getPos().x - cam.getPos().x), En->getPos().y), 100, 70, rend);
-		///Setting up for animating sprites ^^		
+		En->Draw(Vec2((En->getPos().x - cam.getPos().x), En->getPos().y), 100, 70, rend);	
 		play->Draw(Vec2((play->getPos().x - cam.getPos().x), play->getPos().y), 77, 136, rend);
-		SDL_RenderPresent(rend);
-		//Updating Movement constantly x
+		//////////////////->
+
+		//////////////////
+		///UPDATES////////
+		//////////////////->
+		for (int i = 0; i < 4; i++){
+			Seed[i].update(play);
+		}
+		cam.update(play->getPos());
 		play->update(DT);
 		play->health = En->update(play->getPos().x,DT,play->health);
 		if (play->health < 0)
 		{
 			playing = false;
 		}
-		
+		//////////////////->
+		SDL_RenderPresent(rend);
 	}
 	///pause before we leave
 	SDL_Delay(2000);

@@ -1,5 +1,6 @@
 #pragma once
 #include "Texture.h"
+#include "Player.h"
 class Seeds : public Texture
 {
 public:
@@ -7,14 +8,14 @@ public:
 		unsigned int current = SDL_GetTicks();
 		SDL_Rect RenderSize;
 		SDL_Rect TextureSize;
-		float temp = (current / 100) % 4;
+		float temp = float((current / 100) % 4);
 		
-		RenderSize.x = temp *17.4;
+		RenderSize.x = int(temp *17.4);
 		RenderSize.y = 0;
 		RenderSize.h = height;
 		RenderSize.w = width;
-		TextureSize.x = pos.x;
-		TextureSize.y = pos.y;
+		TextureSize.x = int(pos.x);
+		TextureSize.y = int(pos.y);
 		TextureSize.h = height;
 		TextureSize.w = width;
 
@@ -25,6 +26,7 @@ public:
 	Vec2 getPos();
 	void setPos(Vec2 p);
 	bool isActive;
+	void update(Player *p);
 private:
 	Vec2 Position;
 };
