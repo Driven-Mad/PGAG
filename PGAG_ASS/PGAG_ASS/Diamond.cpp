@@ -19,7 +19,7 @@ void Diamond::update(Player *p){
 	if (collected){
 		Diamond::~Diamond();
 	}
-	if (p->getPos().x >= pos.x && p->getPos().x <= pos.x + 44 && p->onPlatform == true){
+	if (((p->getPos().x + 30) >= pos.x) && ((p->getPos().x + 30) <= (pos.x + 44)) && p->onPlatform == true){
 		collected = true;
 	}
 }

@@ -26,7 +26,7 @@ Vec2 Enemy::getPos(){
 ///////////////////
 ///update Function/
 ///////////////////
-void Enemy::update(Player *P, float DT){
+void Enemy::update(Player *P, float DT, Diamond *d){
 	///updating position constantly 
 	Position.x = ((Position.x + (Vel.x * DT)));
 	Position.y = ((Position.y + (Vel.y * DT)));
@@ -55,7 +55,7 @@ void Enemy::update(Player *P, float DT){
 		timer = 0;
 		recentlyAttacked = false;
 	}
-	if (!P->onPlatform){
+	if (!P->onPlatform && !d->collected){
 		///Checks to see if the enemy can move LEFT
 		if (P->getPos().x <= Position.x && recentlyAttacked == false){
 			Vel.x -= 20;
@@ -75,7 +75,7 @@ void Enemy::update(Player *P, float DT){
 			Position.y <= (P->getPos().y + 50) &&
 			recentlyAttacked == false){
 			Vel.x = 0;
-			//P->setHealth(P->getHealth() - 1);
+			P->setHealth(P->getHealth() - 1);
 			recentlyAttacked = true;
 			startTimer = true;
 		}

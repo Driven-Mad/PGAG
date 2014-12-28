@@ -57,7 +57,6 @@ SDL_Texture* Texture::getText()
 {
 	return text;
 }
-void Texture::setTexture(SDL_Texture *t)
-{
+void Texture::setTexture(SDL_Texture *t){
 	text = t;
 }

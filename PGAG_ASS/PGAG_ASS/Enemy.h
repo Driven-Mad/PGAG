@@ -3,6 +3,7 @@
 #include "Texture.h"
 #include "Player.h"
 #include "Camera.h"
+#include "Diamond.h"
 class Enemy : public Texture{
 public:
 	Enemy();
@@ -41,7 +42,7 @@ public:
 		SDL_RenderCopy(r, Texture::getText(), &RenderSize, &TextureSize);
 	}
 	///Update function, taking in the players position, Delta Timer and health of player.
-	void update(Player *p, float DT);
+	void update(Player *p, float DT, Diamond *d);
 	///Get the position of the enemy.
 	Vec2 getPos();
 

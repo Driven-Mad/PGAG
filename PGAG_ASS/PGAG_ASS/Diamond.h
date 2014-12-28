@@ -12,7 +12,7 @@ public:
 		Uint32 tempSeconds = Uint32(current / 100);
 		float diamondSparkle = float(tempSeconds % 4);
 		SDL_Rect TextureSize;
-		TextureSize.x = pos.x = b->getPosition().x - c->getPos().x + 100;
+		TextureSize.x = b->getPosition().x - c->getPos().x + 100;
 		TextureSize.y = pos.y = b->getPosition().y - 40;
 		TextureSize.h = 57;
 		TextureSize.w = 44.5;
@@ -22,6 +22,7 @@ public:
 		RenderSize.h = 57;
 		RenderSize.w = 44.5;
 		SDL_RenderCopy(r, Texture::getText(), &RenderSize, &TextureSize);
+		pos.x = b->getPosition().x + 100;
 	}
 	void update(Player *p);
 	Vec2 getPos();

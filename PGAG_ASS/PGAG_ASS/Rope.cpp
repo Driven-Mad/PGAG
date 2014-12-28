@@ -36,8 +36,8 @@ void Rope::update(Player *p){
 		unsigned int current = SDL_GetTicks();
 		Uint32 tempSeconds = Uint32(current / 300);
 		float F = float(tempSeconds % 10);
-		std::cout << F;
 		RenderSize.x = F * 16 + 96;
+		p->setMagic(0);
 	}
 
 	if (p->getPos().x + 30  >= pos.x && p->getPos().x + 30  <= pos.x + 16 && p->getPos().y + 136 >= pos.y){
