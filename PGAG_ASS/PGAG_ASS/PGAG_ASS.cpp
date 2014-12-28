@@ -7,8 +7,9 @@
 #include "Enemy.h"
 #include "Game.h"
 #include "Camera.h"
-#include <vector>
-
+#include "Blockade.h"
+#include "Rope.h"
+#include "Diamond.h"
 int main(int argc, char *argv[]){
 	int levelx = 0, levely = 0, levelWid = 2048, levelLen = 768;
 	int winX = 100, winY = 100, winWid = 1024, winLen = 768;
@@ -24,9 +25,22 @@ int main(int argc, char *argv[]){
 	Player *play = new Player();
 	play->setfilename("Tree2.bmp");
 	play->createTexture(rend);
-	Texture *Blockade = new Texture();
-	Blockade->setfilename("Hill.bmp");
-	Blockade->createTexture(rend);
+	Blockade *Block = new Blockade();
+	Block->setfilename("Hill.bmp");
+	Block->createTexture(rend);
+	SDL_Rect BlockSize;
+	BlockSize.h = 50;
+	BlockSize.w = 200;
+	BlockSize.x = 1000;
+	BlockSize.y = winLen - 500;
+	Block->setPosition(BlockSize);
+	Diamond *diamond = new Diamond();
+	diamond->setfilename("Diamond.bmp");
+	diamond->createTexture(rend);
+	Rope *Rpe = new Rope();
+	Rpe->setfilename("Rope.bmp");
+	Rpe->createTexture(rend);
+	Rpe->setPos(Vec2(float(Block->getPosition().x),float( Block->getPosition().y + 30.0f)));
 	Texture *Hill = new Texture();
 	Hill->setfilename("Hill.bmp");
 	Hill->createTexture(rend);
@@ -48,37 +62,6 @@ int main(int argc, char *argv[]){
 	///Bool for play while loop;
 	bool playing = true;
 	while (playing){
-		SDL_Event incoming;
-		while (SDL_PollEvent(&incoming)){
-			switch (incoming.type){
-			case SDL_QUIT:
-				playing = false;
-				break;
-			case SDL_KEYDOWN:
-				switch (incoming.key.keysym.sym){
-				case SDLK_LEFT:
-					play->movingL = true;
-					break;
-				case SDLK_RIGHT:
-					play->movingR = true;
-					break;
-				case SDLK_UP :
-					play->isJumping = true;
-					break;
-				default:
-					play->idle = true;
-					break;
-				}
-				break;
-			case SDL_KEYUP:
-				play->idle = true;
-				play->movingL = false;
-				play->movingR = false;
-				play->isJumping = false;
-				break;
-			}
-		}
-
 		///Creating a DT
 		unsigned int current = SDL_GetTicks();
 		float DT = (float)(current - lastTime) / 100000.0f;
@@ -89,15 +72,19 @@ int main(int argc, char *argv[]){
 		//////////////////
 		///Drawring///////
 		//////////////////->
+		Uint32 tempSeconds = Uint32(current / 100);
+		float diamondSparkle = float(tempSeconds % 4);
 		BackGround->Draw(-cam->getPos(), levelWid, levelLen, Vec2(0, 0), winWid, winLen, rend);
 		Hill->Draw(Vec2(-cam->getPos().x, float(winLen) - 72.0f), levelWid, 72, Vec2(0.0f, 0.0f), levelWid, 72, rend);
-		Blockade->Draw(Vec2(1800 - cam->getPos().x, float(winLen) - 300.0f), 200, 300, Vec2(0, 0), levelWid, 72, rend);
+		Block->Draw(cam, rend);
+		diamond->Draw(Block,cam, rend);
 		Health->Draw(Vec2(0.0f, 0.0f), 86, 80, Vec2(play->getHealth() * 86.0f, 0.0f), 86, 80, rend);
 		Magic->Draw(Vec2(winWid - 80.0f, 0.0f), 86, 80, Vec2(play->getMagic() * 86.0f, 0.0f),86, 80, rend);
 		for (int i = 0; i < 4; i++){
 			Seed[i].Draw(cam, rend);
 		}
 		En->Draw(cam, rend);
+		Rpe->Draw(cam, rend);
 		play->Draw(cam, rend);
 		//////////////////->
 
@@ -107,13 +94,11 @@ int main(int argc, char *argv[]){
 		for (int i = 0; i < 4; i++){
 			Seed[i].update(play);
 		}
+		Block->update(play);
 		cam->update(play->getPos());
 		play->update(DT);
 		En->update(play,DT);
-		if (play->getHealth() < 0)
-		{
-			playing = false;
-		}
+		Rpe->update(play);
 		//////////////////->
 		SDL_RenderPresent(rend);
 	}

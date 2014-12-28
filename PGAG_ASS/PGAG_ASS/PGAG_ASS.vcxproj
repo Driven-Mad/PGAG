@@ -82,20 +82,26 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Blockade.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Diamond.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="PGAG_ASS.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Rope.cpp" />
     <ClCompile Include="Seeds.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Vec2.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Blockade.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Diamond.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Rope.h" />
     <ClInclude Include="Seeds.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Vec2.h" />

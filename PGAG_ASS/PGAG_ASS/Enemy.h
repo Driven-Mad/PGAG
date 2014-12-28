@@ -2,7 +2,6 @@
 #define ENEMY_H
 #include "Texture.h"
 #include "Player.h"
-#include "Vec2.h"
 #include "Camera.h"
 class Enemy : public Texture{
 public:
@@ -54,6 +53,5 @@ private:
 	int timer;
 	///Bools
 	bool startTimer, recentlyAttacked, movingL, movingR, idle, attackL, attackR;
-	
 };
-#endif;
+#endif

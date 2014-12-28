@@ -1,9 +1,9 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 #include "Texture.h"
-#include "Vec2.h"
-#include <SDL.h>
 #include "Camera.h"
+#include "Vec2.h"
+#include "SDL.h"
 class Player : public Texture{
 public:
 	Player();
@@ -42,7 +42,7 @@ public:
 		SDL_RenderCopy(r, Texture::getText(), &RenderSize, &TextureSize);
 	}
 	///Updates player function based on DT
-	void update(float DT);
+	bool update(float DT);
 	///Getters and Setters
 	Vec2 getPos();
 	void setPos(Vec2 p);
@@ -52,7 +52,7 @@ public:
 	void setHealth(int i);
 	int getMagic();
 	void setMagic(int i);
-	bool movingL, movingR, isJumping, idle, onGround;
+	bool movingL, movingR, isJumping, idle, onGround, hittingAWall, onPlatform, casting, canClimb, inRange;
 private:
 	///Vec2s
 	Vec2 oldPos, pos, vel;

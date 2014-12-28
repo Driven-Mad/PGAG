@@ -55,27 +55,33 @@ void Enemy::update(Player *P, float DT){
 		timer = 0;
 		recentlyAttacked = false;
 	}
-	///Checks to see if the enemy can move LEFT
-	if (P->getPos().x <= Position.x && recentlyAttacked==false){
-		Vel.x -= 20;
-		movingL = true;
-		attackL = attackR = idle = movingR = false;
+	if (!P->onPlatform){
+		///Checks to see if the enemy can move LEFT
+		if (P->getPos().x <= Position.x && recentlyAttacked == false){
+			Vel.x -= 20;
+			movingL = true;
+			attackL = attackR = idle = movingR = false;
+		}
+		///Checks to see if the enemy can move RIGHT
+		if (P->getPos().x >= Position.x && recentlyAttacked == false){
+			Vel.x += 20;
+			movingR = true;
+			attackL = attackR = movingL = idle = false;
+		}
+		///Checks to see if the Player && Enemy are close enough to have the player be bitten AND if the player has been bitten recently
+		if (P->getPos().x + 30 >= (Position.x - 5) &&
+			P->getPos().x + 30 <= (Position.x + 5) &&
+			Position.y >= (P->getPos().y + 20) &&
+			Position.y <= (P->getPos().y + 50) &&
+			recentlyAttacked == false){
+			Vel.x = 0;
+			//P->setHealth(P->getHealth() - 1);
+			recentlyAttacked = true;
+			startTimer = true;
+		}
 	}
-	///Checks to see if the enemy can move RIGHT
-	if (P->getPos().x >= Position.x && recentlyAttacked == false){
-		Vel.x += 20;
-		movingR = true;
-		attackL = attackR = movingL = idle = false;
-	}
-	///Checks to see if the Player && Enemy are close enough to have the player be bitten AND if the player has been bitten recently
-	if (P->getPos().x + 30 >= (Position.x - 5) &&
-		P->getPos().x + 30 <= (Position.x + 5) &&
-		Position.y >= (P->getPos().y + 20) &&
-		Position.y <= (P->getPos().y + 50) &&
-		recentlyAttacked == false){
+	else{
 		Vel.x = 0;
-		P->setHealth(P->getHealth() - 1);
-		recentlyAttacked = true;
-		startTimer = true;
+		idle = true;
 	}
 }
