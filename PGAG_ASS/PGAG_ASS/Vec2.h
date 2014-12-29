@@ -1,7 +1,6 @@
 #ifndef VEC2_H
 #define VEC2_H
 #include <math.h>
-
 class Vec2{
 public:
 	///Vector2 Constructors, takes 0,2,3 arg
@@ -13,7 +12,7 @@ public:
 	float x;
 	float y;
 	float w;
-
+	///Basic operators
 	const Vec2& operator +=(const Vec2& v);
 	const Vec2& operator -=(const Vec2& v);
 	const Vec2& operator *=(const Vec2& v);
@@ -28,9 +27,7 @@ public:
 	const Vec2 cross(Vec2 a, Vec2 b);
 	const float magnitude(Vec2 v);
 	const Vec2 normalize(Vec2 v);
-
 private:
-
 };
 /// Addition Operations for Vec 2's
 inline const Vec2 operator + (const Vec2 &a, const Vec2 &b){
@@ -85,6 +82,7 @@ inline const Vec2 operator / (const Vec2 &a, const Vec2 &b){
 	temp.w = 1.0f;
 	return temp;
 }
+///Divide operator with floats and Vec2's
 inline const Vec2 operator / (const Vec2 &v, const float &f){
 	Vec2 temp;
 	temp.x = v.x / f;
@@ -99,4 +97,4 @@ inline const Vec2 operator -(const Vec2 v){
 	temp.y = -v.y;
 	return temp;
 }
-#endif
+#endif ///!VEC2_H

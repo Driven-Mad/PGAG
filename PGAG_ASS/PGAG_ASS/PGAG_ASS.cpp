@@ -11,12 +11,15 @@
 #include "Rope.h"
 #include "Diamond.h"
 int main(int argc, char *argv[]){
-	int levelx = 0, levely = 0, levelWid = 2048, levelLen = 768;
-	int winX = 100, winY = 100, winWid = 1024, winLen = 768;
-	int mouseX = 0, mouseY = 0;
+	///Global Variables for the main function
+	///ints
+	int levelx = 0, levely = 0, levelWid = 2048, levelLen = 768, winX = 100, winY = 100, winWid = 1024, winLen = 768, mouseX = 0, mouseY = 0;
+	///Boolians
 	bool playing = false, menu = true, instruction = false, running = true;
+	///Create a renderer
 	Game App;
 	SDL_Renderer *rend = App.init();
+	///Initalise LastTime for me to get on with using DT
 	unsigned int lastTime = SDL_GetTicks();
 	///////////////////////////////////////////
 	///Initalising instances of Classes////////
@@ -79,8 +82,9 @@ int main(int argc, char *argv[]){
 	Light2->createTexture(rend);
 	Camera *cam = new Camera();
 	///////////////////////////////////////////->
+	///Bool for RUNNING game BEGINS->
 	while (running){
-		///Bool for Menu while loop ->
+		///Bool for MENU while loop BEGINS->
 		while (menu){
 			SDL_SetRenderDrawColor(rend, 0xFF, 0xFF, 0xFF, 0xFF);
 			SDL_RenderClear(rend);
@@ -109,8 +113,9 @@ int main(int argc, char *argv[]){
 			}
 			SDL_RenderPresent(rend);
 		}
-		///Bool for Menu while loop ->
-		///Bool for Instructions while loop ->
+		///Bool for MENU while loop ENDS ->
+
+		///Bool for Instructions while loop BEGINS->
 		while (instruction){
 			SDL_SetRenderDrawColor(rend, 0xFF, 0xFF, 0xFF, 0xFF);
 			SDL_RenderClear(rend);
@@ -128,8 +133,8 @@ int main(int argc, char *argv[]){
 			}
 			SDL_RenderPresent(rend);
 		}
-		///Bool for Instuctions while loop ->
-		///Bool for Playing while loop ->
+		///Bool for Instuctions while loop ENDS ->
+		///Bool for Playing while loop BEGINS->
 		while (playing){
 			///Creating a DT
 			unsigned int current = SDL_GetTicks();
@@ -185,18 +190,15 @@ int main(int argc, char *argv[]){
 
 			SDL_RenderPresent(rend);
 		}
-		///Bool for Menu while loop ->
+		///Bool for PLAYING while loop ENDS->
 	}
+	///Bool for RUNNING game ENDS ->
 	///pause before we leave
 	SDL_Delay(2000);
 	///destroy and quit out of window
-	delete play;
-	delete BackGround;
-	delete Hill;
-	delete BackGround2;
-	delete Block;
-	delete cam;
-	delete Rpe;
+	delete play, Health, Magic, En, BackGround, Hill, BackGround2, Block, cam, diamond, EndScene, Instructions, Menu, Rpe, Light1, Light2;
+	for (int i = 0; i < 4; i++)
+		Seed[i].~Seeds;
 	SDL_Quit();
 	return 0;
 }

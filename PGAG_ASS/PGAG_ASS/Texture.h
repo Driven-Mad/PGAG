@@ -18,20 +18,22 @@ public:
 	void setfilename(std::string s);
 	///Draws Texture to screen
 	void Texture::Draw(Vec2 texturePosition, int width, int height, Vec2 renderPosition, int Rwidth, int Rheight, SDL_Renderer *r){
+		///Texture box, what you want to see on screen
 		SDL_Rect TextureSize;
 		TextureSize.x = int(texturePosition.x);
 		TextureSize.y = int(texturePosition.y);
 		TextureSize.h = height;
 		TextureSize.w = width;
+		///Render box, what you want to render off the image.
 		SDL_Rect RenderSize;
 		RenderSize.x = int(renderPosition.x);
 		RenderSize.y = int(renderPosition.y);
 		RenderSize.h = Rheight;
 		RenderSize.w = Rwidth;
-		//SDL_QueryTexture(text, NULL, NULL, &des.w, &des.h);
 		SDL_RenderCopy(r, text, &RenderSize, &TextureSize);
 	}
 private:
+	///Private Vairbales.
 	///File Name for Texture
 	std::string filename;
 	///Texture handle for our texture :D
@@ -43,5 +45,5 @@ private:
 	///Load an image
 	SDL_Surface loadImage(std::string filename);
 };
-#endif
+#endif ///!TEXTURE_H
 

@@ -47,6 +47,7 @@ void Player::setVel(Vec2 v){
 ///update Function/
 ///////////////////
 bool Player::update(float DT){
+	///Looks after player user input from the keyboard, and uses boolians to set actions
 	SDL_Event incoming;
 	while (SDL_PollEvent(&incoming)){
 		switch (incoming.type){
@@ -104,6 +105,7 @@ bool Player::update(float DT){
 	if (pos.y + 136 > 768){
 		pos.y = 768 - 136;
 	}
+	///if the player dies, then the game ends.
 	if (health < 0){
 		return false;
 	}
@@ -142,7 +144,7 @@ bool Player::update(float DT){
 			pos.x -= 1;
 			isJumping = false;
 	}
-	///if on floor stops moving up and down
+	///if on floor or Platform stops moving up and down, would have used an onGround || onPlatform, however this did not work
 	if (onGround){
 		vel.y = 0;
 		isJumping = false;

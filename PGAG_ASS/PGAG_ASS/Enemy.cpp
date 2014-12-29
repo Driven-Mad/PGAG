@@ -55,6 +55,7 @@ void Enemy::update(Player *P, float DT, Diamond *d){
 		timer = 0;
 		recentlyAttacked = false;
 	}
+	///if the player is not on the platform, and the diamond hasn't been collected.
 	if (!P->onPlatform && !d->collected){
 		///Checks to see if the enemy can move LEFT
 		if (P->getPos().x <= Position.x && recentlyAttacked == false){

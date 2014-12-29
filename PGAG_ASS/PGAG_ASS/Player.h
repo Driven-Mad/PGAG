@@ -54,9 +54,10 @@ public:
 	void setMagic(int i);
 	bool movingL, movingR, isJumping, idle, onGround, hittingAWall, onPlatform, casting, canClimb, inRange;
 private:
+	///Private variables
 	///Vec2s
 	Vec2 oldPos, pos, vel;
 	///Ints
 	int stance, magic, health;;
 };
-#endif
+#endif ///!PLAYER_H

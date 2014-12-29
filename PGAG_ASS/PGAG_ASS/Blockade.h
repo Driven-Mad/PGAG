@@ -7,6 +7,7 @@ class Blockade :public Texture{
 public:
 	Blockade();
 	~Blockade();
+	///Virtual Function from Texture re-defined to suit blockade
 	void Blockade::Draw(Camera *C, SDL_Renderer *r){
 		SDL_Rect TextureSize;
 		TextureSize.x = int(Position.x - C->getPos().x);
@@ -18,14 +19,18 @@ public:
 		RenderSize.y = int(0);
 		RenderSize.h = 72;
 		RenderSize.w = 2048;
-		//SDL_QueryTexture(text, NULL, NULL, &des.w, &des.h);
 		SDL_RenderCopy(r, Texture::getText(), &RenderSize, &TextureSize);
 	}
+	///returns the position (in form of, x,y,w,h
 	SDL_Rect getPosition();
+	///Set the position in form of x,y,w,h
 	void setPosition(SDL_Rect p);
+	///Update taking in the player.
 	void update(Player *P);
 private:
+	///Private Variables
+	///SDL_Rect's
 	SDL_Rect Position;
 };
 
-#endif // !BLOCKADE_H
+#endif /// !BLOCKADE_H

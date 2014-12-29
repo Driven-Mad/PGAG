@@ -55,4 +55,4 @@ private:
 	///Bools
 	bool startTimer, recentlyAttacked, movingL, movingR, idle, attackL, attackR;
 };
-#endif
+#endif ///!ENEMY_H

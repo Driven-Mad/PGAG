@@ -10,5 +10,5 @@ public:
 	SDL_Renderer* init();
 private:
 };
-#endif
+#endif ///!GAME_H
 

@@ -7,6 +7,7 @@ public:
 	~Camera();
 	///Update Function based on players position
 	void update(Vec2 P);
+	///Draw Function
 	void draw();
 	///Get position of the camera
 	Vec2 getPos();
@@ -17,4 +18,4 @@ private:
 	///Int's
 	int levelWid , levelLen, winWid;
 };
-#endif
+#endif ///!CAMERA_H
