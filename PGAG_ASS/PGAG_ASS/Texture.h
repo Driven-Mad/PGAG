@@ -17,7 +17,7 @@ public:
 	///setter for filename
 	void setfilename(std::string s);
 	///Draws Texture to screen
-	void Texture::Draw(Vec2 texturePosition, int width, int height, Vec2 renderPosition, int Rwidth, int Rheight, SDL_Renderer *r){
+	virtual void Draw(Vec2 texturePosition, int width, int height, Vec2 renderPosition, int Rwidth, int Rheight, SDL_Renderer *r){
 		///Texture box, what you want to see on screen
 		SDL_Rect TextureSize;
 		TextureSize.x = int(texturePosition.x);
@@ -33,7 +33,7 @@ public:
 		SDL_RenderCopy(r, text, &RenderSize, &TextureSize);
 	}
 private:
-	///Private Vairbales.
+	///Private Varibales.
 	///File Name for Texture
 	std::string filename;
 	///Texture handle for our texture :D

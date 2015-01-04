@@ -9,7 +9,7 @@ public:
 	Diamond();
 	~Diamond();
 	///Draw function (virtual) re-defined to suit Diamonds
-	void Diamond::Draw(Blockade *b, Camera *c, SDL_Renderer *r){
+		void Draw(Blockade *b, Camera *c, SDL_Renderer *r){
 		unsigned int current = SDL_GetTicks();
 		Uint32 tempSeconds = Uint32(current / 100);
 		float diamondSparkle = float(tempSeconds % 4);

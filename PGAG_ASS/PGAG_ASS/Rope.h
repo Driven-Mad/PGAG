@@ -17,7 +17,7 @@ public:
 	///Update based on player
 	void update(Player *p);
 	///Draw function re-defined to suit the rope.
-	void Rope::Draw(Camera *c, SDL_Renderer *r){
+	void Draw(Camera *c, SDL_Renderer *r){
 		SDL_Rect TextureSize;
 		TextureSize.x = int(pos.x - c->getPos().x);
 		TextureSize.y = int(pos.y);

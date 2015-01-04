@@ -7,7 +7,7 @@ class Seeds : public Texture
 {
 public:
 	///Virtual function re-defined to suit the seeds.
-	void Seeds::Draw( Camera *c, SDL_Renderer *r){
+	void Draw( Camera *c, SDL_Renderer *r){
 		unsigned int current = SDL_GetTicks();
 		SDL_Rect RenderSize;
 		SDL_Rect TextureSize;

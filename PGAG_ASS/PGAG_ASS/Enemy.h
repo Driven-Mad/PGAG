@@ -9,7 +9,7 @@ public:
 	Enemy();
 	~Enemy();
 	///Virtual function from Texture so it can be re-defiened
-	void Enemy::Draw(Camera *c, SDL_Renderer *r){
+	void Draw(Camera *c, SDL_Renderer *r){
 		unsigned int current = SDL_GetTicks();
 		SDL_Rect RenderSize, TextureSize;
 		float temp = float((current / 100) % 6), temp2 = float((current / 100) % 4), temp3 = float((current / 100) % 3);

@@ -9,7 +9,7 @@ public:
 	Player();
 	~Player();
 	///Virtual function re-defined for textures
-	void Player::Draw(Camera *c, SDL_Renderer *r){
+	void Draw(Camera *c, SDL_Renderer *r){
 		unsigned int current = SDL_GetTicks();
 		SDL_Rect RenderSize;
 		Uint32 tempSeconds = Uint32(current / 100);

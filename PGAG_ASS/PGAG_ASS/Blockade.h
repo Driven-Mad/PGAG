@@ -8,7 +8,7 @@ public:
 	Blockade();
 	~Blockade();
 	///Virtual Function from Texture re-defined to suit blockade
-	void Blockade::Draw(Camera *C, SDL_Renderer *r){
+	void Draw(Camera *C, SDL_Renderer *r){
 		SDL_Rect TextureSize;
 		TextureSize.x = int(Position.x - C->getPos().x);
 		TextureSize.y = int(Position.y);
