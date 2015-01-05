@@ -24,7 +24,7 @@ SDL_Renderer* Game::init(){
 	SDL_Renderer *rend = SDL_CreateRenderer(window, -1, 0);
 	return rend;
 }
-bool Game::running(SDL_Renderer* rend){
+bool Game::run(SDL_Renderer* rend){
 	///Global Variables for the main function
 	///ints
 	int levelx = 0, levely = 0, levelWid = 2048, levelLen = 768, winX = 100, winY = 100, winWid = 1024, winLen = 768, mouseX = 0, mouseY = 0;
@@ -194,7 +194,6 @@ bool Game::running(SDL_Renderer* rend){
 			Rpe->update(play);
 			diamond->update(play);
 			//////////////////->
-
 			SDL_RenderPresent(rend);
 		}
 		///Bool for PLAYING while loop ENDS->

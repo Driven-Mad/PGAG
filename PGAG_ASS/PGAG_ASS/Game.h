@@ -17,7 +17,7 @@ public:
 	~Game();
 	///Returns a renderer
 	SDL_Renderer* init();
-	bool running(SDL_Renderer* rend);
+	bool run(SDL_Renderer* rend);
 private:
 };
 #endif ///!GAME_H

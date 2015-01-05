@@ -6,6 +6,6 @@ int main(int argc, char *argv[]){
 	///Create a renderer
 	Game App;
 	SDL_Renderer *rend = App.init();
-	App.running(rend);
+	App.run(rend);
 	return 0;
 }
