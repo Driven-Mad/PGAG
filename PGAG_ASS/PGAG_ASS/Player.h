@@ -52,7 +52,7 @@ public:
 	void setHealth(int i);
 	int getMagic();
 	void setMagic(int i);
-	bool movingL, movingR, isJumping, idle, onGround, hittingAWall, onPlatform, casting, canClimb, inRange;
+	bool movingL, movingR, isJumping, idle, onGround, hittingAWall, onPlatform, casting, canClimb, inRange, hasWon;
 private:
 	///Private variables
 	///Vec2s

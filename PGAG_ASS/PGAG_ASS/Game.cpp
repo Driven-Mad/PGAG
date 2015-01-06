@@ -1,18 +1,11 @@
 #include "Game.h"
+///////////////////////////////////
+///Constructor Creating a renderer
+///////////////////////////////////
 Game::Game(){
-}
-Game::~Game(){
-}
-
-////////////////////
-///Creates a render/
-////////////////////
-SDL_Renderer* Game::init(){
 	SDL_Window *window;
 	///Initialise Video
 	SDL_Init(SDL_INIT_VIDEO);
-	///create alterable varibales for quick change and later use.
-	int levelx = 0, levely = 0, levelWid = 2048, levelLen = 1536, winX = 100, winY = 100, winWid = 1024, winLen = 768;
 	///Create window using pointer, and SDL
 	window = SDL_CreateWindow("Magical world", winX, winY, winWid, winLen, SDL_WINDOW_OPENGL);
 	///Error tracking
@@ -21,39 +14,44 @@ SDL_Renderer* Game::init(){
 		SDL_Quit;
 	}
 	///Create a renderer through creating a window
-	SDL_Renderer *rend = SDL_CreateRenderer(window, -1, 0);
-	return rend;
+	rend = SDL_CreateRenderer(window, -1, 0);
+	lastTime = SDL_GetTicks();
 }
-bool Game::run(SDL_Renderer* rend){
-	///Global Variables for the main function
-	///ints
-	int levelx = 0, levely = 0, levelWid = 2048, levelLen = 768, winX = 100, winY = 100, winWid = 1024, winLen = 768, mouseX = 0, mouseY = 0;
-	///Boolians
-	bool playing = false, menu = true, instruction = false, running = true;
-	///Initalise LastTime for me to get on with using DT
-	unsigned int lastTime = SDL_GetTicks();
-	///////////////////////////////////////////
-	///Initalising instances of Classes////////
-	///////////////////////////////////////////->
-	Texture *BackGround = new Texture();
+////////////////////////////////////
+///Destructor Destroying Everything
+////////////////////////////////////
+Game::~Game(){
+	///pause before we leave
+	SDL_Delay(2000);
+	///destroy and quit out of window
+	delete play, Health, Magic, En, BackGround, Hill, BackGround2, Block, cam, diamond, EndScene, Instructions, Menu, Rpe	;
+	for (int i = 0; i < 4; i++)
+		Seed[i].~Seeds();
+	SDL_Quit();
+}
+///////////////////////////////////////////
+///Initalising instances of Classes
+///////////////////////////////////////////
+void Game::initTextures(){
+	BackGround = new Texture();
 	BackGround->setfilename("Space.bmp");
 	BackGround->createTexture(rend);
-	Texture *Menu = new Texture();
+	Menu = new Texture();
 	Menu->setfilename("Menu.bmp");
 	Menu->createTexture(rend);
-	Texture *Instructions = new Texture();
+	Instructions = new Texture();
 	Instructions->setfilename("Instructions.bmp");
 	Instructions->createTexture(rend);
-	Texture *EndScene = new Texture();
+	EndScene = new Texture();
 	EndScene->setfilename("EndScene.bmp");
 	EndScene->createTexture(rend);
-	Texture *BackGround2 = new Texture();
+	BackGround2 = new Texture();
 	BackGround2->setfilename("Day.bmp");
 	BackGround2->createTexture(rend);
-	Player *play = new Player();
+	play = new Player();
 	play->setfilename("Tree2.bmp");
 	play->createTexture(rend);
-	Blockade *Block = new Blockade();
+	Block = new Blockade();
 	Block->setfilename("Hill.bmp");
 	Block->createTexture(rend);
 	SDL_Rect BlockSize;
@@ -62,152 +60,173 @@ bool Game::run(SDL_Renderer* rend){
 	BlockSize.x = 1000;
 	BlockSize.y = winLen - 500;
 	Block->setPosition(BlockSize);
-	Diamond *diamond = new Diamond();
+	diamond = new Diamond();
 	diamond->setfilename("Diamond.bmp");
 	diamond->createTexture(rend);
-	Rope *Rpe = new Rope();
+	Rpe = new Rope();
 	Rpe->setfilename("Rope.bmp");
 	Rpe->createTexture(rend);
 	Rpe->setPos(Vec2(float(Block->getPosition().x), float(Block->getPosition().y + 30.0f)));
-	Texture *Hill = new Texture();
+	Hill = new Texture();
 	Hill->setfilename("Hill.bmp");
 	Hill->createTexture(rend);
-	Texture *Health = new Texture();
+	Health = new Texture();
 	Health->setfilename("Health.bmp");
 	Health->createTexture(rend);
-	Texture *Magic = new Texture();
+	Magic = new Texture();
 	Magic->setfilename("Magic.bmp");
 	Magic->createTexture(rend);
-	Enemy *En = new Enemy();
+	En = new Enemy();
 	En->createTexture(rend);
-	Seeds Seed[4];
 	for (int i = 0; i < 4; i++){
 		Seed[i].setPos(Vec2(float(rand() % 1700 + 100), float(winLen - 80)));
 		Seed[i].createTexture(rend);
+		Seed[i].isActive = true;
 	}
-	Texture *Light = new Texture();
-	Light->setfilename("Lights2.bmp");
-	Light->createTexture(rend);
-	Camera *cam = new Camera();
-	///////////////////////////////////////////->
-	///Bool for RUNNING game BEGINS->
-	while (running){
-		///Bool for MENU while loop BEGINS->
-		while (menu){
-			SDL_SetRenderDrawColor(rend, 0xFF, 0xFF, 0xFF, 0xFF);
-			SDL_RenderClear(rend);
-			Menu->Draw(Vec2(0.0f, 0.0f), winWid, winLen, Vec2(0, 0), winWid, winLen, rend);
-			SDL_Event incoming;
-			while (SDL_PollEvent(&incoming)){
-				if (incoming.type == SDL_MOUSEBUTTONDOWN){
-					SDL_GetMouseState(&mouseX, &mouseY);
-					if (mouseX >= 52 && mouseY >= 62 && mouseX <= 247 && mouseY <= 180){
-						playing = true;
-						menu = false;
-						instruction = false;
-					}
-					if (mouseX >= 811 && mouseY >= 62 && mouseX <= 981 && mouseY <= 180){
-						playing = false;
-						menu = false;
-						instruction = false;
-						running = false;
-					}
-					if (mouseX >= 237 && mouseY >= 327 && mouseX <= 825 && mouseY <= 422){
-						playing = false;
-						menu = false;
-						instruction = true;
-					}
-				}
-			}
-			SDL_RenderPresent(rend);
-		}
-		///Bool for MENU while loop ENDS ->
+	
+	cam = new Camera();
+	for (int i = 0; i < 1000; i++){
+		lights[i] = new Light();
+	}
+	//for (int i = 0; i < 1000; i++){
+	//	pixel[i].x = rand() % winWid;
+	//	pixel[i].y = rand() % winLen;
+	//}
+	
 
-		///Bool for Instructions while loop BEGINS->
-		while (instruction){
-			SDL_SetRenderDrawColor(rend, 0xFF, 0xFF, 0xFF, 0xFF);
-			SDL_RenderClear(rend);
-			Instructions->Draw(Vec2(0.0f, 0.0f), winWid, winLen, Vec2(0, 0), winWid, winLen, rend);
-			SDL_Event incoming;
-			while (SDL_PollEvent(&incoming)){
-				if (incoming.type == SDL_MOUSEBUTTONDOWN){
-					SDL_GetMouseState(&mouseX, &mouseY);
-					if (mouseX >= 0 && mouseY >= 0 && mouseX <= 1028 && mouseY <= 768){
-						playing = false;
-						menu = true;
-						instruction = false;
-					}
-				}
+}
+/////////////////////////
+///Loads the Menu
+/////////////////////////
+void Game::loadMenu(){
+	SDL_SetRenderDrawColor(rend, 0xFF, 0xFF, 0xFF, 0xFF);
+	SDL_RenderClear(rend);
+	Menu->Draw(Vec2(0.0f, 0.0f), winWid, winLen, Vec2(0, 0), winWid, winLen, rend);
+	SDL_Event incoming;
+	while (SDL_PollEvent(&incoming)){
+		if (incoming.type == SDL_MOUSEBUTTONDOWN){
+			SDL_GetMouseState(&mouseX, &mouseY);
+			if (mouseX >= 52 && mouseY >= 62 && mouseX <= 247 && mouseY <= 180){
+				playing = true;
+				menu = false;
+				instruction = false;
 			}
-			SDL_RenderPresent(rend);
-		}
-		///Bool for Instuctions while loop ENDS ->
-		///Bool for Playing while loop BEGINS->
-		while (playing){
-			///Creating a DT
-			unsigned int current = SDL_GetTicks();
-			float DT = (float)(current - lastTime) / 100000.0f;
-			lastTime = current;
-			///Sets background default colour
-			SDL_SetRenderDrawColor(rend, 0xFF, 0xFF, 0xFF, 0xFF);
-			SDL_RenderClear(rend);
-			//////////////////
-			///Drawring///////
-			//////////////////->
-			Uint32 tempSeconds = Uint32(current / 100);
-			float LightSparkle = float(tempSeconds % 4);
-			if (!diamond->collected){
-				BackGround->Draw(-cam->getPos(), levelWid, levelLen, Vec2(0, 0), winWid, winLen, rend);
+			if (mouseX >= 811 && mouseY >= 62 && mouseX <= 981 && mouseY <= 180){
+				playing = false;
+				menu = false;
+				instruction = false;
+				running = false;
 			}
-			if (diamond->collected){
-				BackGround2->Draw(-cam->getPos(), levelWid, levelLen, Vec2(0, 0), winWid, winLen, rend);
-				if (play->getHealth() >= 0){
-					EndScene->Draw(Vec2(0.0f, 0.0f), winWid, winLen, Vec2(0, 0), winWid, winLen, rend);
-				}
+			if (mouseX >= 237 && mouseY >= 327 && mouseX <= 825 && mouseY <= 422){
+				playing = false;
+				menu = false;
+				instruction = true;
 			}
-			Hill->Draw(Vec2(-cam->getPos().x, float(winLen) - 72.0f), levelWid, 72, Vec2(0.0f, 0.0f), levelWid, 72, rend);
-			Block->Draw(cam, rend);
-			diamond->Draw(Block, cam, rend);
-			Health->Draw(Vec2(0.0f, 0.0f), 86, 80, Vec2(play->getHealth() * 86.0f, 0.0f), 86, 80, rend);
-			Magic->Draw(Vec2(winWid - 80.0f, 0.0f), 86, 80, Vec2(play->getMagic() * 86.0f, 0.0f), 86, 80, rend);
-			for (int i = 0; i < 4; i++){
-				Seed[i].Draw(cam, rend);
-			}
-			En->Draw(cam, rend);
-			Rpe->Draw(cam, rend);
-			play->Draw(cam, rend);
-			if (play->casting){
-				Light->Draw(play->getPos() - cam->getPos(), 77, 136, Vec2(77 * LightSparkle, 0), 77, 136, rend);
-			}
-			//////////////////->
-
-			//////////////////
-			///UPDATES////////
-			//////////////////->
-			for (int i = 0; i < 4; i++){
-				Seed[i].update(play);
-			}
-			Block->update(play);
-			cam->update(play->getPos());
-			playing = play->update(DT);
-			En->update(play, DT, diamond);
-			Rpe->update(play);
-			diamond->update(play);
-			//////////////////->
-			SDL_RenderPresent(rend);
-		}
-		///Bool for PLAYING while loop ENDS->
-		if (!playing){
-			menu = true;
 		}
 	}
-	///Bool for RUNNING game ENDS ->
-	///pause before we leave
-	SDL_Delay(2000);
-	///destroy and quit out of window
-	delete play, Health, Magic, En, BackGround, Hill, BackGround2, Block, cam, diamond, EndScene, Instructions, Menu, Rpe, Light;
-	for (int i = 0; i < 4; i++)
-		Seed[i].~Seeds();
-	SDL_Quit();
-	return 0;
+	SDL_RenderPresent(rend);
+}
+/////////////////////////////////
+///Loads the Instructions
+/////////////////////////////////
+void Game::loadInstructions(){
+	SDL_SetRenderDrawColor(rend, 0xFF, 0xFF, 0xFF, 0xFF);
+	SDL_RenderClear(rend);
+	Instructions->Draw(Vec2(0.0f, 0.0f), winWid, winLen, Vec2(0, 0), winWid, winLen, rend);
+	SDL_Event incoming;
+	while (SDL_PollEvent(&incoming)){
+		if (incoming.type == SDL_MOUSEBUTTONDOWN){
+			SDL_GetMouseState(&mouseX, &mouseY);
+			if (mouseX >= 0 && mouseY >= 0 && mouseX <= 1028 && mouseY <= 768){
+				playing = false;
+				menu = true;
+				instruction = false;
+			}
+		}
+	}
+	SDL_RenderPresent(rend);
+
+}
+/////////////////////////
+///Loads the Game
+/////////////////////////
+void Game::loadGame(){
+	///Creating a DT
+	unsigned int current = SDL_GetTicks();
+	float DT = (float)(current - lastTime) / 100000.0f;
+	lastTime = current;
+	///Sets background default colour
+	SDL_SetRenderDrawColor(rend, 0xFF, 0xFF, 0xFF, 0xFF);
+	SDL_RenderClear(rend);
+	///Drawring//////////////////->
+
+	Uint32 tempSeconds = Uint32(current / 100);
+	float LightSparkle = float(tempSeconds % 4);
+	if (!diamond->collected){
+		BackGround->Draw(-cam->getPos(), levelWid, levelLen, Vec2(0, 0), winWid, winLen, rend);
+	}
+	if (diamond->collected){
+		BackGround2->Draw(-cam->getPos(), levelWid, levelLen, Vec2(0, 0), winWid, winLen, rend);
+		if (play->getHealth() >= 0){
+			EndScene->Draw(Vec2(0.0f, 0.0f), winWid, winLen, Vec2(0, 0), winWid, winLen, rend);
+		}
+	}
+	Hill->Draw(Vec2(-cam->getPos().x, float(winLen) - 72.0f), levelWid, 72, Vec2(0.0f, 0.0f), levelWid, 72, rend);
+	Block->Draw(cam, rend);
+	diamond->Draw(Block, cam, rend);
+	Health->Draw(Vec2(0.0f, 0.0f), 86, 80, Vec2(play->getHealth() * 86.0f, 0.0f), 86, 80, rend);
+	Magic->Draw(Vec2(winWid - 80.0f, 0.0f), 86, 80, Vec2(play->getMagic() * 86.0f, 0.0f), 86, 80, rend);
+	for (int i = 0; i < 4; i++){
+		Seed[i].Draw(cam, rend);
+	}
+	En->Draw(cam, rend);
+	Rpe->Draw(cam, rend);
+	play->Draw(cam, rend);
+	for (int i = 0; i < 1000; i++){
+		lights[i]->update(DT, rend, play, cam, Rpe);
+	}
+	
+	//////////////////->
+	///UPDATES//////////////////->
+	for (int i = 0; i < 4; i++){
+		Seed[i].update(play);
+	}
+	Block->update(play);
+	cam->update(play->getPos());
+	playing = play->update(DT);
+	En->update(play, DT, diamond);
+	Rpe->update(play);
+	diamond->update(play);
+	//////////////////->
+	SDL_RenderPresent(rend);
+	if (!playing){
+		menu = true;
+	}
+}
+///////////////////////
+///Getters and Setters/
+///////////////////////
+bool Game::getPlaying(){
+	return playing;
+}
+void Game::setPlaying(bool b){
+	playing = b;
+}
+bool Game::getMenu(){
+	return menu;
+}
+void Game::setMenu(bool b){
+	menu = b;
+}
+bool Game::getInstructions(){
+	return instruction;
+}
+void Game::setInstructions(bool b){
+	instruction = b;
+}
+bool Game::getRunning(){
+	return running;
+}
+void Game::setRunning(bool b){
+	running = b;
 }

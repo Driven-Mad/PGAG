@@ -74,6 +74,8 @@ bool Player::update(float DT){
 					casting = true;
 				}
 				break;
+			case SDLK_ESCAPE:
+				return false;
 			default:
 				idle = true;
 				break;

@@ -87,6 +87,7 @@
     <ClCompile Include="Diamond.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Light.cpp" />
     <ClCompile Include="PGAG_ASS.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Rope.cpp" />
@@ -100,6 +101,7 @@
     <ClInclude Include="Diamond.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="Light.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Rope.h" />
     <ClInclude Include="Seeds.h" />
