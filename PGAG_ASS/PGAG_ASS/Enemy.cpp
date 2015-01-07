@@ -76,7 +76,7 @@ void Enemy::update(Player *P, float DT, Diamond *d){
 			Position.y <= (P->getPos().y + 50) &&
 			recentlyAttacked == false){
 			Vel.x = 0;
-			//P->setHealth(P->getHealth() - 1);
+			P->setHealth(P->getHealth() - 1);
 			recentlyAttacked = true;
 			startTimer = true;
 		}

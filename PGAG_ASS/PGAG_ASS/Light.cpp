@@ -2,10 +2,10 @@
 
 
 Light::Light(SDL_Renderer *rend){
-	pos.x = rand() % 2048;
-	pos.y = rand() % 756;
-	vel.x = rand() % 20000 - 10000;
-	vel.y = rand() % 10000 + 1;
+	pos.x = float(rand() % 2048);
+	pos.y = float(rand() % 756);
+	vel.x = float(rand() % 20000 - 10000);
+	vel.y = float(rand() % 10000 + 1);
 	x = rand() % 255;
 
 	switched = false;
@@ -30,15 +30,13 @@ Light::~Light(){
 }
 
 void Light::update(float DT, SDL_Renderer *rend, Player *p, Camera *c, Rope *r){
-	pixel.x = pos.x;
-	pixel.y = pos.y;
 	
 	//SDL_SetColorKey(image, SDL_TRUE, SDL_MapRGB(image->format, 255, 0, 255));
 
 	SDL_SetTextureAlphaMod(lightTexture, x);
 	SDL_Rect TextureSize;
-	TextureSize.x = pos.x - c->getPos().x;
-	TextureSize.y = pos.y;
+	TextureSize.x = int(pos.x - c->getPos().x);
+	TextureSize.y = int(pos.y);
 	TextureSize.h = 10;
 	TextureSize.w = 10;
 	///Render box, what you want to render off the image.
@@ -73,8 +71,8 @@ void Light::update(float DT, SDL_Renderer *rend, Player *p, Camera *c, Rope *r){
 		pos.y = ((pos.y + (vel.y * DT)));
 	}
 	if (r->isDown && !switched){
-		vel.y = rand() % 20000 - 10000;
-		vel.x = rand() % 20000 - 10000;
+		vel.y = float(rand() % 20000 - 10000);
+		vel.x = float(rand() % 20000 - 10000);
 		switched = true;
 	}
 	if (r->isDown && switched){

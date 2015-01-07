@@ -8,7 +8,7 @@ Vec2::~Vec2(){
 }
 
 ///== opertion for Vec2
-const bool& Vec2::operator ==(const Vec2& v){
+const bool Vec2::operator ==(const Vec2& v){
 	if (x == v.x && y == v.y && w == v.w)
 		return true;
 	else

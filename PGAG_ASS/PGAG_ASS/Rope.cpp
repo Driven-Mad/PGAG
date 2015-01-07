@@ -46,7 +46,7 @@ void Rope::update(Player *p){
 	if (isDown == true){
 		unsigned int current = SDL_GetTicks();
 		Uint32 tempSeconds = Uint32(current / 300);
-		float F = float(tempSeconds % 10);
+		int F = tempSeconds % 10;
 		RenderSize.x = F * 16 + 96;
 		p->setMagic(0);
 	}

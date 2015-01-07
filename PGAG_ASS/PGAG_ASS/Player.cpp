@@ -182,6 +182,7 @@ bool Player::update(float DT){
 	default:
 		break;
 	}
+	return true;
 }
 
  

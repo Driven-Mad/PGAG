@@ -11,7 +11,7 @@ Game::Game(){
 	///Error tracking
 	if (window == NULL){
 		std::printf("GOOD LAWD YOU SUCK");
-		SDL_Quit;
+		SDL_Quit();
 	}
 	///Create a renderer through creating a window
 	rend = SDL_CreateRenderer(window, -1, 0);
@@ -28,7 +28,7 @@ Game::~Game(){
 	for (int i = 0; i < 4; i++)
 		Seed[i].~Seeds();
 	SDL_Quit();
-	for (int i = 0; i < 1000; i++){
+	for (int i = 0; i < 300; i++){
 		delete lights[i];
 	}
 }
@@ -88,7 +88,7 @@ void Game::initTextures(){
 	}
 	
 	cam = new Camera();
-	for (int i = 0; i < 1000; i++){
+	for (int i = 0; i < 300; i++){
 		lights[i] = new Light(rend);
 	}
 	//for (int i = 0; i < 1000; i++){
@@ -185,7 +185,7 @@ void Game::loadGame(){
 	En->Draw(cam, rend);
 	Rpe->Draw(cam, rend);
 	play->Draw(cam, rend);
-	for (int i = 0; i < 1000; i++){
+	for (int i = 0; i < 300; i++){
 		lights[i]->update(DT, rend, play, cam, Rpe);
 	}
 	

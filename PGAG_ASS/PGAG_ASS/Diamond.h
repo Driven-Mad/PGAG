@@ -14,17 +14,17 @@ public:
 		Uint32 tempSeconds = Uint32(current / 100);
 		float diamondSparkle = float(tempSeconds % 4);
 		SDL_Rect TextureSize;
-		TextureSize.x = b->getPosition().x - c->getPos().x + 100;
-		TextureSize.y = pos.y = b->getPosition().y - 40;
+		TextureSize.x = int(b->getPosition().x - c->getPos().x + 100);
+		pos.y = float(TextureSize.y = int(b->getPosition().y - 40));
 		TextureSize.h = 57;
-		TextureSize.w = 44.5;
+		TextureSize.w = 45;
 		SDL_Rect RenderSize;
 		RenderSize.x = int(46.5 * diamondSparkle);
 		RenderSize.y = 0;
 		RenderSize.h = 57;
-		RenderSize.w = 44.5;
+		RenderSize.w = 45;
 		SDL_RenderCopy(r, Texture::getText(), &RenderSize, &TextureSize);
-		pos.x = b->getPosition().x + 100;
+		pos.x = b->getPosition().x + 100.0f;
 	}
 	///Update Function taking in the player.
 	void update(Player *p);

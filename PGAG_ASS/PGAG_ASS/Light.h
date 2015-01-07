@@ -12,7 +12,6 @@ public:
 	Light(SDL_Renderer *r);
 	~Light();
 	void update(float DT, SDL_Renderer *rend, Player *p, Camera *c, Rope *r);
-	SDL_Point pixel;
 	bool switched;
 private:
 	Vec2 pos, vel;

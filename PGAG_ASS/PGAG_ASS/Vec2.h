@@ -21,7 +21,7 @@ public:
 	const Vec2& operator -=(const float& f);
 	const Vec2& operator *=(const float& f);
 	const Vec2& operator /=(const float& f);
-	const bool& operator ==(const Vec2& v);
+	const bool operator ==(const Vec2& v);
 	//couple of operations to get dot, cross, mag, and norm of vectors
 	const float dot(Vec2 a, Vec2 b);
 	const Vec2 cross(Vec2 a, Vec2 b);
