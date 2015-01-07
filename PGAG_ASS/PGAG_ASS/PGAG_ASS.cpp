@@ -25,5 +25,6 @@ int main(int argc, char *argv[]){
 			App->loadGame();
 		}
 	}
+	App->~Game();
 	return 0;
 }

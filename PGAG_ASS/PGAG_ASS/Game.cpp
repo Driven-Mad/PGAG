@@ -28,6 +28,9 @@ Game::~Game(){
 	for (int i = 0; i < 4; i++)
 		Seed[i].~Seeds();
 	SDL_Quit();
+	for (int i = 0; i < 1000; i++){
+		delete lights[i];
+	}
 }
 ///////////////////////////////////////////
 ///Initalising instances of Classes
@@ -86,7 +89,7 @@ void Game::initTextures(){
 	
 	cam = new Camera();
 	for (int i = 0; i < 1000; i++){
-		lights[i] = new Light();
+		lights[i] = new Light(rend);
 	}
 	//for (int i = 0; i < 1000; i++){
 	//	pixel[i].x = rand() % winWid;

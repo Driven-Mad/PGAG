@@ -67,7 +67,6 @@ private:
 	unsigned int lastTime;
 	///Creating the renderer
 	SDL_Renderer* rend;
-	SDL_Point pixel[1000];
 	Light *lights[1000];
 };
 #endif ///!GAME_H
