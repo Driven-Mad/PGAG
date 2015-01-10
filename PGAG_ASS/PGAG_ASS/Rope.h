@@ -1,10 +1,10 @@
+#ifndef ROPE_H
+#define ROPE_H
 //------------------------------------------------------------------
 /// \file    Rope.h
 /// \author  Lloyd Phillips
 /// \brief   This is the Rope class, inherits from the Texture class
 //------------------------------------------------------------------
-#ifndef ROPE_H
-#define ROPE_H
 #include "Texture.h"
 #include "Player.h"
 #include "Camera.h"

@@ -1,10 +1,10 @@
+#ifndef SEED_H
+#define SEED_H
 //------------------------------------------------------------------
 /// \file    Seeds.h
 /// \author  Lloyd Phillips
-/// \brief   This is the seed class, inherits from the Texture class
+/// \brief   This is the Seeds class, inherits from the Texture class
 //------------------------------------------------------------------
-#ifndef SEED_H
-#define SEED_H
 #include "Texture.h"
 #include "Camera.h"
 #include "Player.h"

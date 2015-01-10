@@ -1,10 +1,10 @@
+#ifndef TEXTURE_H
+#define TEXTURE_H
 //------------------------------------------------------------------
 /// \file    Texture.h
 /// \author  Lloyd Phillips
 /// \brief   This is the Texture class
 //------------------------------------------------------------------
-#ifndef TEXTURE_H
-#define TEXTURE_H
 #include <iostream>
 #include <SDL.h>
 #include "Vec2.h"

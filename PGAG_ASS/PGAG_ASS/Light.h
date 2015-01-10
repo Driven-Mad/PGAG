@@ -1,9 +1,10 @@
+#ifndef LIGHT_H
+#define LIGHT_H
 //------------------------------------------------------------------
 /// \file    Light.h
 /// \author  Lloyd Phillips
 /// \brief   This is the Light class
 //------------------------------------------------------------------
-#pragma once
 #include <SDL.h>
 #include "Vec2.h"
 #include "Player.h"
@@ -33,4 +34,4 @@ private:
 	bool increasing, decreasing; ///<Boolian for state of if Alpha is increasing/Decreasing
 	int a,b; ///<Int a & b for random 
 };
-
+#endif //!LIGHT_H

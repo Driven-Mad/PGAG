@@ -1,10 +1,10 @@
+#ifndef GAME_H
+#define GAME_H
 //------------------------------------------------------------------
 /// \file    Game.h
 /// \author  Lloyd Phillips
 /// \brief   This is the Game class
 //------------------------------------------------------------------
-#ifndef GAME_H
-#define GAME_H
 #include <SDL.h>
 #include <iostream>
 #include "Seeds.h"

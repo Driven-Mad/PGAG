@@ -1,10 +1,10 @@
+#ifndef DIAMOND_H
+#define DIAMOND_H
 //------------------------------------------------------------------
 /// \file    Diamond.h
 /// \author  Lloyd Phillips
 /// \brief   This is the diamond class, Inherits from Texture class
 //------------------------------------------------------------------
-#ifndef DIAMOND_H
-#define DIAMOND_H
 #include "Texture.h"
 #include "Camera.h"
 #include "Blockade.h"
@@ -38,12 +38,12 @@ public:
 	/// \brief Updates the diamond
 	/// \Update taking in the player for collision.
 	void update(Player *p);
-	/// \brief returns the position in form of, x,y
+	/// \brief Gets position
+	/// \returns the position in form of, x,y
 	Vec2 getPos();
 	/// \brief sets the position in form of, x,y
 	void setPos(Vec2 p);
-	/// \brief public boolian if the diamond has been collected
-	bool collected;
+	bool collected;///< public boolian if the diamond has been collected
 private:
 	Vec2 pos; ///<Position of the Diamond in form x,y
 };

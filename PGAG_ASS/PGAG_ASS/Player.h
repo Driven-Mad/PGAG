@@ -1,10 +1,10 @@
+#ifndef PLAYER_H
+#define PLAYER_H
 //------------------------------------------------------------------
 /// \file    Player.h
 /// \author  Lloyd Phillips
 /// \brief   This is the Player class, Inherits from Texture class
 //------------------------------------------------------------------
-#ifndef PLAYER_H
-#define PLAYER_H
 #include "Texture.h"
 #include "Camera.h"
 #include "Vec2.h"

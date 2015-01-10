@@ -1,11 +1,10 @@
+#ifndef BLOCKADE_H
+#define BLOCKADE_H
 //------------------------------------------------------------------
 /// \file    Blockade.h
 /// \author  Lloyd Phillips
-/// \brief   This is the blockade class
+/// \brief   This is the Blockade class
 //------------------------------------------------------------------
-
-#ifndef BLOCKADE_H
-#define BLOCKADE_H
 #include "Texture.h"
 #include "Player.h"
 #include "Camera.h"

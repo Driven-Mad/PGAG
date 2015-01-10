@@ -1,10 +1,10 @@
+#ifndef VEC2_H
+#define VEC2_H
 //------------------------------------------------------------------
 /// \file    Vec2.h
 /// \author  Lloyd Phillips
 /// \brief   This is the Vec2 class
 //------------------------------------------------------------------
-#ifndef VEC2_H
-#define VEC2_H
 #include <math.h>
 class Vec2{
 public:

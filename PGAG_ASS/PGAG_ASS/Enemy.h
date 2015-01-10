@@ -1,10 +1,10 @@
+#ifndef ENEMY_H
+#define ENEMY_H
 //------------------------------------------------------------------
 /// \file    Enemy.h
 /// \author  Lloyd Phillips
 /// \brief   This is the Enemy class, Inherits from Texture class
 //------------------------------------------------------------------
-#ifndef ENEMY_H
-#define ENEMY_H
 #include "Texture.h"
 #include "Player.h"
 #include "Camera.h"
