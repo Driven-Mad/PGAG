@@ -3,25 +3,25 @@
 #include "Game.h"
 
 int main(int argc, char *argv[]){
-	///Create a new game
+	//Create a new game
 	Game *App = new Game();
-	///While it's running
+	//While it's running
 	while (App->getRunning()){
-		///While state is on Menu
+		//While state is on Menu
 		while (App->getMenu()){
-			///Initilise the Textures, player etc.
+			//Initilise the Textures, player etc.
 			App->initTextures();
-			///load the Menu
+			//load the Menu
 			App->loadMenu();
 		}
-		///while state is on instructions
+		//while state is on instructions
 		while (App->getInstructions()){
-			///Load the Instructions
+			//Load the Instructions
 			App->loadInstructions();
 		}
-		///While game state is playing
+		//While game state is playing
 		while (App->getPlaying()){
-			///Load the Game
+			//Load the Game
 			App->loadGame();
 		}
 	}

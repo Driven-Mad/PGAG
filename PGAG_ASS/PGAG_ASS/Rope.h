@@ -1,3 +1,8 @@
+//------------------------------------------------------------------
+/// \file    Rope.h
+/// \author  Lloyd Phillips
+/// \brief   This is the Rope class, inherits from the Texture class
+//------------------------------------------------------------------
 #ifndef ROPE_H
 #define ROPE_H
 #include "Texture.h"
@@ -6,17 +11,12 @@
 #include "Blockade.h"
 class Rope :public Texture{
 public:
+	/// \brief Constructor
 	Rope();
+	/// \brief destructor
 	~Rope();
-	///sets the position, on a x,y basis
-	void setPos(Vec2 p);
-	///returns a position, on a x,y basis
-	Vec2 getPos();
-	///Set's Render.x box
-	void setRenderX(int x);
-	///Update based on player
-	void update(Player *p);
-	///Draw function re-defined to suit the rope.
+	/// \brief Virtual Function for drawing the texture
+	/// \re-defined to suit rope takes the Camera, renderer
 	void Draw(Camera *c, SDL_Renderer *r){
 		SDL_Rect TextureSize;
 		TextureSize.x = int(pos.x - c->getPos().x);
@@ -25,16 +25,20 @@ public:
 		TextureSize.w = 16;
 		SDL_RenderCopy(r, Texture::getText(), &RenderSize, &TextureSize);
 	}
-	///If the rope has come all the way down!
-	bool isDown;
+	/// \brief sets the position, on a x,y basis
+	void setPos(Vec2 p);
+	/// \brief returns a position, on a x,y basis
+	Vec2 getPos();
+	/// \brief Set's Render.x box
+	void setRenderX(int x);
+	/// \brief Updates the diamond
+	/// \Update taking in the player for collision.
+	void update(Player *p);
+	bool isDown;///< If the rope has come all the way down!
 private:
-	///Private Variables
-	///Int's
-	int stance = 0, timer;
-	///Vec2's
-	Vec2 pos;
-	///SDL_Rect's
-	SDL_Rect RenderSize;
+	int stance = 0, timer; ///<Stance and Timer
+	Vec2 pos; ///<Position of the Rope
+	SDL_Rect RenderSize; ///<RenderSize of the Rope
 };
 #endif ///!ROPE_H
 

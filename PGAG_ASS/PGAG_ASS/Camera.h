@@ -1,21 +1,28 @@
+//------------------------------------------------------------------
+/// \file    Camera.h
+/// \author  Lloyd Phillips
+/// \brief   This is the camera class
+//------------------------------------------------------------------
 #ifndef CAMERA_H
 #define CAMERA_H
 #include "Vec2.h"
 class Camera{
 public:
+	/// \brief Constructor
 	Camera();
+	/// \brief destructor
 	~Camera();
-	///Update Function based on players position
+	/// \brief Updates the camera
+	/// \Update Function based on position
 	void update(Vec2 P);
-	///Draw Function
+	/// \brief Draw Function
+	/// \Draws camera to the screen
 	void draw();
-	///Get position of the camera
+	/// \brief gets the position of the camera
+	/// \returns a vec2 of position of the camera, returns x,y
 	Vec2 getPos();
 private:
-	///Private Variables
-	///Vec2's
-	Vec2 position;
-	///Int's
-	int levelWid , levelLen, winWid;
+	Vec2 position; ///<Position of the camera in form of X,Y
+	int levelWid , levelLen, winWid; /// <Level/Window sizes
 };
 #endif ///!CAMERA_H

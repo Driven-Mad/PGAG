@@ -1,3 +1,8 @@
+//------------------------------------------------------------------
+/// \file    Enemy.h
+/// \author  Lloyd Phillips
+/// \brief   This is the Enemy class, Inherits from Texture class
+//------------------------------------------------------------------
 #ifndef ENEMY_H
 #define ENEMY_H
 #include "Texture.h"
@@ -6,9 +11,12 @@
 #include "Diamond.h"
 class Enemy : public Texture{
 public:
+	/// \brief Constructor
 	Enemy();
+	/// \brief destructor
 	~Enemy();
-	///Virtual function from Texture so it can be re-defiened
+	/// \brief Virtual Function for drawing the texture
+	/// \re-defined to suit Enemy takes the Camera and renderer
 	void Draw(Camera *c, SDL_Renderer *r){
 		unsigned int current = SDL_GetTicks();
 		SDL_Rect RenderSize, TextureSize;
@@ -41,18 +49,15 @@ public:
 		TextureSize.w = 100;
 		SDL_RenderCopy(r, Texture::getText(), &RenderSize, &TextureSize);
 	}
-	///Update function, taking in the players position, Delta Timer and health of player.
+	/// \brief Updates the Enemy
+	/// \Update taking in the player for collision, delta time, and Diamonds.
 	void update(Player *p, float DT, Diamond *d);
-	///Get the position of the enemy.
+	/// \brief returns the position in form of, x,y
 	Vec2 getPos();
 
 private:
-	///Private Variables
-	///Vec2s
-	Vec2 Position, Vel;
-	///Ints
-	int timer;
-	///Bools
-	bool startTimer, recentlyAttacked, movingL, movingR, idle, attackL, attackR;
+	Vec2 Position, Vel; ///<Position and Velocity of the Enemy
+	int timer;///<A timer to help the enemy
+	bool startTimer, recentlyAttacked, movingL, movingR, idle, attackL, attackR; ///<boolians for states of enemy
 };
 #endif ///!ENEMY_H

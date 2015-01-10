@@ -1,3 +1,9 @@
+//------------------------------------------------------------------
+/// \file    Blockade.h
+/// \author  Lloyd Phillips
+/// \brief   This is the blockade class
+//------------------------------------------------------------------
+
 #ifndef BLOCKADE_H
 #define BLOCKADE_H
 #include "Texture.h"
@@ -5,9 +11,12 @@
 #include "Camera.h"
 class Blockade :public Texture{
 public:
+	/// \brief Constructor
 	Blockade();
+	/// \brief Destructor
 	~Blockade();
-	///Virtual Function from Texture re-defined to suit blockade
+	/// \brief Virtual Function for drawing the texture
+	/// \re-defined to suit blockade takes the Camera and the renderer
 	void Draw(Camera *C, SDL_Renderer *r){
 		SDL_Rect TextureSize;
 		TextureSize.x = int(Position.x - C->getPos().x);
@@ -21,16 +30,15 @@ public:
 		RenderSize.w = 2048;
 		SDL_RenderCopy(r, Texture::getText(), &RenderSize, &TextureSize);
 	}
-	///returns the position (in form of, x,y,w,h
+	/// \brief returns the position in form of, x,y,w,h
 	SDL_Rect getPosition();
-	///Set the position in form of x,y,w,h
+	/// \brief Sets the position in form of x,y,w,h
 	void setPosition(SDL_Rect p);
-	///Update taking in the player.
+	/// \brief Updates the blockade
+	/// \Update taking in the player for collision.
 	void update(Player *P);
 private:
-	///Private Variables
-	///SDL_Rect's
-	SDL_Rect Position;
+	SDL_Rect Position; ///<Position of the Blockade in form of x,y,w,h
 };
 
 #endif /// !BLOCKADE_H

@@ -1,13 +1,14 @@
 #include "Light.h"
 
-
+//constructor
 Light::Light(SDL_Renderer *rend){
 	pos.x = float(rand() % 2048);
 	pos.y = float(rand() % 756);
 	vel.x = float(rand() % 20000 - 10000);
 	vel.y = float(rand() % 10000 + 1);
 	x = rand() % 255;
-
+	a = rand() % 4 + 4 ;
+	b = a - 4;
 	switched = false;
 	std::string file = "light.png";
 	image = IMG_Load(file.c_str());
@@ -16,36 +17,38 @@ Light::Light(SDL_Renderer *rend){
 		SDL_Delay(200);
 		SDL_Quit();
 	}
-	SDL_SetColorKey(image, 1, SDL_MapRGB(image->format, 255, 0, 255));
 	decreasing = false;
 	increasing = true;
 	lightTexture = SDL_CreateTextureFromSurface(rend, image);
+	lightSolid = SDL_CreateTextureFromSurface(rend, image);
 	SDL_SetTextureBlendMode(lightTexture, SDL_BLENDMODE_BLEND);
 	SDL_FreeSurface(image);
 }
-
-
+//destructor
 Light::~Light(){
 	
 }
-
+//update function
 void Light::update(float DT, SDL_Renderer *rend, Player *p, Camera *c, Rope *r){
-	
-	//SDL_SetColorKey(image, SDL_TRUE, SDL_MapRGB(image->format, 255, 0, 255));
-
 	SDL_SetTextureAlphaMod(lightTexture, x);
 	SDL_Rect TextureSize;
 	TextureSize.x = int(pos.x - c->getPos().x);
 	TextureSize.y = int(pos.y);
-	TextureSize.h = 10;
-	TextureSize.w = 10;
-	///Render box, what you want to render off the image.
+	TextureSize.h = a;
+	TextureSize.w = a;
+	SDL_Rect TextureSize2;
+	TextureSize2.x = (int(pos.x - c->getPos().x) + 2);
+	TextureSize2.y = (int(pos.y) + 2);
+	TextureSize2.h = b;
+	TextureSize2.w = b;
+	//Render box, what you want to render off the image.
 	SDL_Rect RenderSize;
 	RenderSize.x = 0;
 	RenderSize.y = 0;
 	RenderSize.h = 10;
 	RenderSize.w = 10;
 	SDL_RenderCopy(rend, lightTexture, &RenderSize, &TextureSize);
+	SDL_RenderCopy(rend, lightSolid, &RenderSize, &TextureSize2);
 	if (pos.y >= 700 && !r->isDown){
 		pos.y = 0;
 	}
@@ -79,7 +82,6 @@ void Light::update(float DT, SDL_Renderer *rend, Player *p, Camera *c, Rope *r){
 		pos.x = ((pos.x + (vel.x * DT)));
 		pos.y = ((pos.y + (vel.y * DT)));
 	}
-	//SDL_RenderDrawPoint(rend, pos.x - c->getPos().x, pos.y);
 	if (x == 0){
 		increasing = true;
 		decreasing = false;

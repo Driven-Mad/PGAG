@@ -1,15 +1,24 @@
+//------------------------------------------------------------------
+/// \file    Diamond.h
+/// \author  Lloyd Phillips
+/// \brief   This is the diamond class, Inherits from Texture class
+//------------------------------------------------------------------
 #ifndef DIAMOND_H
 #define DIAMOND_H
 #include "Texture.h"
 #include "Camera.h"
 #include "Blockade.h"
+
 class Diamond : public Texture
 {
 public:
+	/// \brief Constructor
 	Diamond();
+	/// \brief destructor
 	~Diamond();
-	///Draw function (virtual) re-defined to suit Diamonds
-		void Draw(Blockade *b, Camera *c, SDL_Renderer *r){
+	/// \brief Virtual Function for drawing the texture
+	/// \re-defined to suit diamond takes the Camera, renderer and blockade
+	void Draw(Blockade *b, Camera *c, SDL_Renderer *r){
 		unsigned int current = SDL_GetTicks();
 		Uint32 tempSeconds = Uint32(current / 100);
 		float diamondSparkle = float(tempSeconds % 4);
@@ -26,17 +35,16 @@ public:
 		SDL_RenderCopy(r, Texture::getText(), &RenderSize, &TextureSize);
 		pos.x = b->getPosition().x + 100.0f;
 	}
-	///Update Function taking in the player.
+	/// \brief Updates the diamond
+	/// \Update taking in the player for collision.
 	void update(Player *p);
-	///Gets the position in x,y,
+	/// \brief returns the position in form of, x,y
 	Vec2 getPos();
-	///sets the position in x,y,(vec2)
+	/// \brief sets the position in form of, x,y
 	void setPos(Vec2 p);
-	///Boolian if collected or not.
+	/// \brief public boolian if the diamond has been collected
 	bool collected;
 private:
-	///Private Variables
-	///Vec2's
-	Vec2 pos;
+	Vec2 pos; ///<Position of the Diamond in form x,y
 };
 #endif ///!DIAMOND_H

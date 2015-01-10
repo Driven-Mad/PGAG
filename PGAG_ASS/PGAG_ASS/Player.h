@@ -1,3 +1,8 @@
+//------------------------------------------------------------------
+/// \file    Player.h
+/// \author  Lloyd Phillips
+/// \brief   This is the Player class, Inherits from Texture class
+//------------------------------------------------------------------
 #ifndef PLAYER_H
 #define PLAYER_H
 #include "Texture.h"
@@ -6,9 +11,12 @@
 #include "SDL.h"
 class Player : public Texture{
 public:
+	/// \brief Constructor
 	Player();
+	/// \brief destructor
 	~Player();
-	///Virtual function re-defined for textures
+	/// \brief Virtual Function for drawing the texture
+	/// \re-defined to suit player takes the Camera, renderer
 	void Draw(Camera *c, SDL_Renderer *r){
 		unsigned int current = SDL_GetTicks();
 		SDL_Rect RenderSize;
@@ -41,23 +49,29 @@ public:
 		RenderSize.w = 77;
 		SDL_RenderCopy(r, Texture::getText(), &RenderSize, &TextureSize);
 	}
-	///Updates player function based on DT
+	/// \brief Updates the player
+	/// \Update taking in DT and returns True or False
 	bool update(float DT);
 	///Getters and Setters
+	/// \brief gets the players Position on X Y basis
 	Vec2 getPos();
+	/// \brief sets the players Position on X Y basis
 	void setPos(Vec2 p);
+	/// \brief gets the players Velocity on X Y basis
 	Vec2 getVel();
+	/// \brief sets the players velocity on X Y basis
 	void setVel(Vec2 v);
+	/// \brief gets the players health
 	int getHealth();
+	/// \brief sets the players health
 	void setHealth(int i);
+	/// \brief gets the players Magic
 	int getMagic();
+	/// \brief sets the players magic
 	void setMagic(int i);
-	bool movingL, movingR, isJumping, idle, onGround, hittingAWall, onPlatform, casting, canClimb, inRange, hasWon;
+	bool movingL, movingR, isJumping, idle, onGround, hittingAWall, onPlatform, casting, canClimb, inRange, hasWon; ///<Different states of the Player on a true/false basis
 private:
-	///Private variables
-	///Vec2s
-	Vec2 oldPos, pos, vel;
-	///Ints
-	int stance, magic, health;;
+	Vec2 oldPos, pos, vel; ///<Position, Velocity, and Oldpoition(for Jumping)
+	int stance, magic, health; ///<Stances, Health, Magic
 };
 #endif ///!PLAYER_H

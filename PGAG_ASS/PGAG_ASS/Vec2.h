@@ -1,35 +1,51 @@
+//------------------------------------------------------------------
+/// \file    Vec2.h
+/// \author  Lloyd Phillips
+/// \brief   This is the Vec2 class
+//------------------------------------------------------------------
 #ifndef VEC2_H
 #define VEC2_H
 #include <math.h>
 class Vec2{
 public:
-	///Vector2 Constructors, takes 0,2,3 arg
+	/// \brief Vector2 Constructors, takes 0,2,3 arg
 	Vec2();
 	Vec2(float a, float b);
 	Vec2(float a, float b, float c);
 	~Vec2();
-	//Vector Co-ords x,y, (sometimes w)
+	/// \brief Vector Co-ords x,y, (sometimes w)
 	float x;
 	float y;
 	float w;
-	///Basic operators
+	/// \brief += operator
 	const Vec2& operator +=(const Vec2& v);
+	/// \brief -= operator
 	const Vec2& operator -=(const Vec2& v);
+	/// \brief *= operator
 	const Vec2& operator *=(const Vec2& v);
+	/// \brief /= operator
 	const Vec2& operator /=(const Vec2& v);
+	/// \brief += operator with floats
 	const Vec2& operator +=(const float& f);
+	/// \brief -= operator with floats
 	const Vec2& operator -=(const float& f);
+	/// \brief *= operator with floats
 	const Vec2& operator *=(const float& f);
+	/// \brief /= operator with floats
 	const Vec2& operator /=(const float& f);
+	/// \brief == operator
 	const bool operator ==(const Vec2& v);
-	//couple of operations to get dot, cross, mag, and norm of vectors
+	/// \brief dot product calculations
 	const float dot(Vec2 a, Vec2 b);
+	/// \brief cross product calculations
 	const Vec2 cross(Vec2 a, Vec2 b);
+	/// \brief Magnitude product calculations
 	const float magnitude(Vec2 v);
+	/// \brief Normalize product calculations
 	const Vec2 normalize(Vec2 v);
 private:
 };
-/// Addition Operations for Vec 2's
+/// \brief Addition Operations for Vec 2's
 inline const Vec2 operator + (const Vec2 &a, const Vec2 &b){
 	Vec2 temp;
 	temp.x = a.x + b.x;
@@ -37,6 +53,7 @@ inline const Vec2 operator + (const Vec2 &a, const Vec2 &b){
 	temp.w = 1.0f;
 	return temp;
 }
+/// \brief Addition Operations for Floats
 inline const Vec2 operator + (const Vec2 &v, const float &f){
 	Vec2 temp;
 	temp.x = v.x + f;
@@ -44,7 +61,7 @@ inline const Vec2 operator + (const Vec2 &v, const float &f){
 	temp.w = 1.0f;
 	return temp;
 }
-/// Subtraction Operations for Vec 2's
+/// \brief Subtraction Operations for Vec 2's
 inline const Vec2 operator - (const Vec2 &a, const Vec2 &b){
 	Vec2 temp;
 	temp.x = a.x + -b.x;
@@ -52,6 +69,7 @@ inline const Vec2 operator - (const Vec2 &a, const Vec2 &b){
 	temp.w = 1.0f;
 	return temp;
 }
+/// \brief Subtraction Operations for Floats
 inline const Vec2 operator - (const Vec2 &v, const float &f){
 	Vec2 temp;
 	temp.x = v.x + -f;
@@ -59,7 +77,7 @@ inline const Vec2 operator - (const Vec2 &v, const float &f){
 	temp.w = 1.0f;
 	return temp;
 }
-/// Multiplication Operations for Vec 2's
+/// \brief Multiplication Operations for Vec 2's
 inline const Vec2 operator * (const Vec2 &a, const Vec2 &b){
 	Vec2 temp;
 	temp.x = a.x * b.x;
@@ -67,6 +85,7 @@ inline const Vec2 operator * (const Vec2 &a, const Vec2 &b){
 	temp.w = 1.0f;
 	return temp;
 }
+/// \brief Multiplication Operations for Floats
 inline const Vec2 operator * (const Vec2 &v, const float &f){
 	Vec2 temp;
 	temp.x = v.x * f;
@@ -74,7 +93,7 @@ inline const Vec2 operator * (const Vec2 &v, const float &f){
 	temp.w = 1.0f;
 	return temp;
 }
-/// Divide Operations for Vec 2's
+/// \brief Divide Operations for Vec 2's
 inline const Vec2 operator / (const Vec2 &a, const Vec2 &b){
 	Vec2 temp;
 	temp.x = a.x / b.x;
@@ -82,7 +101,7 @@ inline const Vec2 operator / (const Vec2 &a, const Vec2 &b){
 	temp.w = 1.0f;
 	return temp;
 }
-///Divide operator with floats and Vec2's
+/// \brief Divide operator with floats and Vec2's
 inline const Vec2 operator / (const Vec2 &v, const float &f){
 	Vec2 temp;
 	temp.x = v.x / f;
@@ -90,7 +109,7 @@ inline const Vec2 operator / (const Vec2 &v, const float &f){
 	temp.w = 1.0f;
 	return temp;
 }
-/// Negate Operations for Vec 2's
+/// \brief Negate Operations for Vec 2's
 inline const Vec2 operator -(const Vec2 v){
 	Vec2 temp;
 	temp.x = -v.x;

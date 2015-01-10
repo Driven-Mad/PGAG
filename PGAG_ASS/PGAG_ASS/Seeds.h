@@ -1,3 +1,8 @@
+//------------------------------------------------------------------
+/// \file    Seeds.h
+/// \author  Lloyd Phillips
+/// \brief   This is the seed class, inherits from the Texture class
+//------------------------------------------------------------------
 #ifndef SEED_H
 #define SEED_H
 #include "Texture.h"
@@ -6,7 +11,12 @@
 class Seeds : public Texture
 {
 public:
-	///Virtual function re-defined to suit the seeds.
+	/// \brief Constructor
+	Seeds();
+	/// \brief destructor
+	~Seeds();
+	/// \brief Virtual Function for drawing the texture
+	/// \re-defined to suit seeds takes the Camera, renderer
 	void Draw( Camera *c, SDL_Renderer *r){
 		unsigned int current = SDL_GetTicks();
 		SDL_Rect RenderSize;
@@ -22,19 +32,15 @@ public:
 		TextureSize.w = 17;
 		SDL_RenderCopy(r, Texture::getText(), &RenderSize, &TextureSize);
 	}
-	Seeds();
-	~Seeds();
-	///Gets the position based on an X,y basis
+	/// \brief Gets the position based on an X,y basis
 	Vec2 getPos();
-	///Sets the position based on an X,y basis
+	/// \brief Sets the position based on an X,y basis
 	void setPos(Vec2 p);
-	///if the seed is currently active
-	bool isActive;
-	///Updates based on the player
+	/// \brief Updates the Seeds
+	/// \Update taking in the player for collision.
 	void update(Player *p);
+	bool isActive; ///< if the seed is currently active
 private:
-	///Private Variables
-	///Vec2's
-	Vec2 Position;
+	Vec2 Position; ///< Position of the Seed
 };
 #endif ///!SEED_H
